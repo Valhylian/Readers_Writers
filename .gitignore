@@ -52,4 +52,5 @@ Mkfile.old
 dkms.conf
 /Inicializador/cmake-build-debug
 /Inicializador/.idea
-/.gitignore
+/Writer/cmake-build-debug
+/Writer/.idea

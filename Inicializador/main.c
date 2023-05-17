@@ -1,69 +1,85 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/types.h>
-#include <time.h>
+#include <sys/time.h>
 
-#define MAX_MESSAGE_LENGTH 100
+// Estructura para almacenar la información de cada línea en la memoria compartida
+struct LineaMemoria {
+    int pid;
+    char horaFecha[50];
+    int numLinea;
+};
 
-typedef struct {
-    pid_t pid;
-    char datetime[MAX_MESSAGE_LENGTH];
-    int line;
-} Message;
+
+key_t obtener_key_t(const char* ruta, int id_proyecto) {
+    key_t clave;
+
+    clave = ftok(ruta, id_proyecto);
+    if (clave == -1) {
+        perror("ftok");
+        // Manejo del error, si es necesario
+    }
+    return clave;
+}
+
 
 int main() {
-    int shmid;
-    Message *shared_memory;
-    int num_lines;
-    int i;
+    const char* ruta = "..//..//generadorKey";
+    int id_proyecto = 123; // Identificador de proyecto arbitrario
+    key_t claveMemoria = obtener_key_t(ruta, id_proyecto);
+    if (claveMemoria == -1) {
+        perror("Error al obtener la clave de la memoria compartida");
+        return 1;
+    }
+    printf("La clave obtenida es %d\n", claveMemoria);
 
-    // Solicitar al usuario la cantidad de líneas
-    printf("Ingrese la cantidad de líneas: ");
-    scanf("%d", &num_lines);
+
+    int cantidadLineas;
+
+    // Solicitar al usuario la cantidad de líneas de la memoria compartida
+    printf("Ingrese la cantidad de líneas de la memoria compartida: ");
+    scanf("%d", &cantidadLineas);
+
+
+    // Calcular el tamaño total de la memoria compartida
+    size_t tamanoMemoria = cantidadLineas * sizeof(struct LineaMemoria);
 
     // Crear la memoria compartida
-    shmid = shmget(IPC_PRIVATE, num_lines * sizeof(Message), IPC_CREAT | 0666);
-    if (shmid == -1) {
+    int idMemoria = shmget(claveMemoria, tamanoMemoria, IPC_CREAT | IPC_EXCL | 0666);
+    if (idMemoria == -1) {
         perror("Error al crear la memoria compartida");
-        exit(1);
+        return 1;
     }
 
-    // Adjuntar la memoria compartida
-    shared_memory = (Message *)shmat(shmid, NULL, 0);
-    if (shared_memory == (Message *)-1) {
+    // Adjuntar la memoria compartida a nuestro espacio de direcciones
+    void* memoriaCompartida = shmat(idMemoria, NULL, 0);
+    if (memoriaCompartida == (void*)-1) {
         perror("Error al adjuntar la memoria compartida");
-        exit(1);
+        // Eliminar la memoria compartida creada
+        shmctl(idMemoria, IPC_RMID, NULL);
+        return 1;
     }
 
-    // Mostrar el ID de la memoria compartida
-    printf("ID de la memoria compartida: %d\n", shmid);
-
-    /*
-    // Escribir en cada línea de la memoria compartida
-    for (i = 0; i < num_lines; i++) {
-        // Obtener el PID del proceso actual
-        pid_t pid = getpid();
-
-        // Obtener la hora y la fecha actual
-        time_t rawtime;
-        struct tm *timeinfo;
-        time(&rawtime);
-        timeinfo = localtime(&rawtime);
-        strftime(shared_memory[i].datetime, sizeof(shared_memory[i].datetime), "%Y-%m-%d %H:%M:%S", timeinfo);
-
-        // Guardar la información en la estructura del mensaje
-        shared_memory[i].pid = pid;
-        shared_memory[i].line = i;
-    }*/
-
-    // Desasociar la memoria compartida
-    if (shmdt(shared_memory) == -1) {
-        perror("Error al desasociar la memoria compartida");
-        exit(1);
+    // Inicializar la memoria compartida vacía
+    struct LineaMemoria* lineas = (struct LineaMemoria*)memoriaCompartida;
+    for (int i = 0; i < cantidadLineas; i++) {
+        lineas[i].pid = 0;
+        lineas[i].numLinea = i + 1;
     }
+
+    // Desvincular la memoria compartida
+    if (shmdt(memoriaCompartida) == -1) {
+        perror("Error al desvincular la memoria compartida");
+        // Eliminar la memoria compartida creada
+        shmctl(idMemoria, IPC_RMID, NULL);
+        return 1;
+    }
+
+    printf("Memoria compartida inicializada correctamente.\n");
 
     return 0;
 }
