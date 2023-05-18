@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <time.h>
+#include "EstadoWriters.h"
 
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
@@ -15,6 +16,8 @@ struct LineaMemoria {
     char horaFecha[50];
     int numLinea;
 };
+
+
 
 //Estructura para pasar paramtros al hilo Writer
 struct ParametrosHilo {
@@ -54,19 +57,8 @@ int obtenerCantLineas (int idMemoria){
     size_t tamanoMemoria = info.shm_segsz;
     int lineas = tamanoMemoria / sizeof(struct LineaMemoria);
     return lineas;
-
 }
-//OBTENER KEY UNICO DE MEMORIA-----------------------------
-key_t obtener_key_t(const char* ruta, int id_proyecto) {
-    key_t clave;
 
-    clave = ftok(ruta, id_proyecto);
-    if (clave == -1) {
-        perror("ftok");
-        // Manejo del error, si es necesario
-    }
-    return clave;
-}
 
 //PROCESOS ESCRITORES--------------------------------------
 void* procesoWriter(void* argumento) {
@@ -92,9 +84,7 @@ void* procesoWriter(void* argumento) {
 
     printf("El valor es: %d\n", finalizar);
 
-
     while(!*terminar){
-
         //1
         finalizar = *terminar;
         if (finalizar){
@@ -150,23 +140,19 @@ void* procesoWriter(void* argumento) {
             perror("Error al desvincular la memoria compartida");
         }
 
-
         //LIBERAR SEMAFORO
         printf("Proceso: %d Libera el semaforo\n", pid);
         sem_post(semaforo);
 
-
         //TIEMPO DORMIDO
         printf("Proceso: %d durmiendo\n", pid);
         usleep( segSleep*1000000);
-
     }
     printf("Proceso: %d sale\n", pid);
     // Desvincular la memoria compartida
     shmdt(terminar);
     pthread_exit(NULL);
 }
-
 
 
 int main() {
@@ -177,6 +163,8 @@ int main() {
         perror("sem_open");
         return 1;
     }
+
+    //INICIAR MEMORIA-ESTADO WRITERS
 
     int cantidadWriters;
     int segEscritura;
