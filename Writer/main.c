@@ -58,7 +58,6 @@ int obtenerCantLineas (int idMemoria){
     return lineas;
 }
 
-
 //PROCESOS ESCRITORES--------------------------------------
 void* procesoWriter(void* argumento) {
     struct ParametrosHilo* parametros = (struct ParametrosHilo*)argumento;
@@ -209,6 +208,13 @@ int main() {
     if (idmemoriaWriters== -1){
         printf("Error al pedir memoria de Writers");
         return 0;
+    }
+
+    //pedir semaforo para los estados de los writers
+    sem_t *semaforoEstadoWriter;
+    semaforo = sem_open("/semaforo_estadoWriter", O_CREAT, 0644, 1);
+    if (semaforo == SEM_FAILED) {
+        printf("Error al pedir el semaforo de estado de Writers");
     }
 
     for (int i=0; i<cantidadWriters; i++){
