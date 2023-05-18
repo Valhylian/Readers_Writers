@@ -4,7 +4,7 @@
 #include <sys/shm.h>
 #include <fcntl.h>
 #include <semaphore.h>
-#include <stdbool.h>
+
 
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {

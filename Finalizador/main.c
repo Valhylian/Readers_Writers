@@ -49,13 +49,13 @@ int main() {
         perror("Error al obtener la clave de la memoria compartida");
         return 1;
     }
-    // Crear la memoria compartida principal
+    // Crear la memoria compartida
     int idFinalizador = shmget(claveFinalizador, sizeof(bool), IPC_CREAT | 0666);
     if (idFinalizador == -1) {
         perror("Error al crear la memoria compartida");
         return 1;
     }
-    // Adjuntar la memoria compartida a nuestro espacio de direcciones
+    // Adjuntar la memoria  a nuestro espacio de direcciones
     bool* terminar = (bool*)shmat(idFinalizador, NULL, 0);
     if (terminar == (bool*)-1) {
         perror("shmat");

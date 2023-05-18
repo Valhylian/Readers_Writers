@@ -6,6 +6,7 @@
 #include <semaphore.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
@@ -48,10 +49,36 @@ void* procesoWriter(void* argumento) {
 
     printf("Proceso: %d\n", pid);
 
-    while(1){
+    //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA----------------------------------------------
+    key_t claveFinalizador= obtener_key_t("..//..//finalizadorKey", 123);
+
+    // Crear la memoria compartida
+    int idFinalizador = shmget(claveFinalizador, sizeof(bool), IPC_CREAT | 0666);
+
+    // Adjuntar la memoria  a nuestro espacio de direcciones
+    bool* terminar = (bool*)shmat(idFinalizador, NULL, 0);
+    bool finalizar = *terminar;
+
+    printf("El valor es: %d\n", finalizar);
+
+
+    while(!*terminar){
+
+        //1
+        finalizar = *terminar;
+        if (finalizar){
+            break;
+        }
+
         //ESPERAR SEMAFORO
         printf("Proceso: %d Esperando semaforo\n", pid);
         sem_wait(semaforo);
+
+        //2
+        finalizar = *terminar;
+        if (finalizar){
+            break;
+        }
 
         // Adjuntar la memoria compartida a nuestro espacio de direcciones
         void* memoriaCompartida = shmat(idMemoria, NULL, 0);
@@ -75,6 +102,7 @@ void* procesoWriter(void* argumento) {
             printf("Proceso: %d Escribiendo\n", pid);
             usleep( segEscritura*1000000);
 
+
             // Escribir en la próxima línea vacía
             lineas[lineaVacia].pid = pid;
             strcpy(lineas[lineaVacia].horaFecha, "horaFecha"); //aqui tiene que ir la hora y la fecha real!
@@ -89,13 +117,22 @@ void* procesoWriter(void* argumento) {
             break;
         }
 
+
         //LIBERAR SEMAFORO
         printf("Proceso: %d Libera el semaforo\n", pid);
         sem_post(semaforo);
 
+
         //TIEMPO DORMIDO
         printf("Proceso: %d durmiendo\n", pid);
         usleep( segSleep*1000000);
+
+
+    }
+    // Desvincular la memoria compartida
+    if (shmdt(terminar) == -1) {
+        perror("shmdt");
+        return NULL;
     }
     pthread_exit(NULL);
 }
