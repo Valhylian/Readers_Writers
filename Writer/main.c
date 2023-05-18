@@ -17,8 +17,6 @@ struct LineaMemoria {
     int numLinea;
 };
 
-
-
 //Estructura para pasar paramtros al hilo Writer
 struct ParametrosHilo {
     int idMemoria;
@@ -27,6 +25,7 @@ struct ParametrosHilo {
     sem_t *semaforo;
     int segSleep;
     int segEscritura;
+    struct Writer *estadoWriter;
 };
 
 //FUNCION retorna fecha y hora
@@ -69,7 +68,7 @@ void* procesoWriter(void* argumento) {
     sem_t *semaforo = parametros->semaforo;
     int segSleep = parametros->segSleep;
     int segEscritura = parametros->segEscritura;
-
+    struct Writer *estadoWriter = parametros->estadoWriter;
     printf("Proceso: %d\n", pid);
 
     //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA----------------------------------------------
@@ -205,7 +204,21 @@ int main() {
 
     struct ParametrosHilo parametros[cantidadWriters];
 
+    //pedir memoria compartida para los estados de los writers
+    int idmemoriaWriters = memoriaEstadoWriters(cantidadWriters);
+    if (idmemoriaWriters== -1){
+        printf("Error al pedir memoria de Writers");
+        return 0;
+    }
+
     for (int i=0; i<cantidadWriters; i++){
+        // Crear estado Writer
+        struct Writer estadoWriter;
+        estadoWriter.pid = i+1;
+        strcpy(estadoWriter.estado,  "En creacion");
+        // agregar writer a la memoria compartida
+        agregarWriterEnPosicion(i, &estadoWriter, idmemoriaWriters);
+
         // Crear una instancia de la estructura de parámetros
         parametros[i].idMemoria = idMemoria;
         parametros[i].cantidadLineas = cantLineas;
@@ -213,6 +226,7 @@ int main() {
         parametros[i].semaforo = semaforo;
         parametros[i].segSleep = segSleep;
         parametros[i].segEscritura = segEscritura;
+        parametros[i].estadoWriter = &estadoWriter;
 
         if (pthread_create(&hilo_writers[i], NULL, procesoWriter, (void*)&parametros[i]) != 0) {
             perror("pthread_create");

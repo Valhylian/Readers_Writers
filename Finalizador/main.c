@@ -23,7 +23,6 @@ int main() {
     key_t claveMemoria = obtener_key_t(ruta, id_proyecto);
     if (claveMemoria == -1) {
         perror("Error al obtener la clave de la memoria compartida");
-        return 1;
     }
     printf("La clave obtenida es %d\n", claveMemoria);
 
@@ -31,15 +30,31 @@ int main() {
     int idMemoria = shmget(claveMemoria, 0, 0);
     if (idMemoria == -1) {
         perror("Error al obtener el ID de la memoria compartida");
-        return 1;
     }
-
-
 
     // Desvincular la memoria compartida
     if (shmctl(idMemoria, IPC_RMID, NULL) == -1) {
         perror("Error al eliminar la memoria compartida");
-        return 1;
+    }
+
+    //CERRAR MEMORIA COMPARTIDA DEL ESTADO DE LOS WRITERS
+    //--------------------------------------------------------------------------
+    // Obtener la clave de la memoria compartida----------------------------------
+    key_t claveWriters = obtener_key_t("..//..//generadorWriters", 123);
+    if (claveWriters == -1) {
+        perror("Error al obtener la clave de la memoria writers");
+    }
+    printf("La clave writers obtenida es %d\n", claveMemoria);
+
+    // Obtener el ID de la memoria compartida
+    int idMemoriaWriters = shmget(claveWriters, 0, 0);
+    if (idMemoriaWriters == -1) {
+        perror("Error al obtener el ID de la memoria writers");
+    }
+
+    // Desvincular la memoria compartida
+    if (shmctl(idMemoriaWriters, IPC_RMID, NULL) == -1) {
+        perror("Error al eliminar la memoria compartida writera");
     }
     //--------------------------------------------------------------------------
     //CERRAR MEMORIA DE FINALIZACION
@@ -47,19 +62,16 @@ int main() {
     key_t claveFinalizador= obtener_key_t("..//..//finalizadorKey", 123);
     if (claveFinalizador == -1) {
         perror("Error al obtener la clave de la memoria compartida");
-        return 1;
     }
     // Crear la memoria compartida
     int idFinalizador = shmget(claveFinalizador, sizeof(bool), IPC_CREAT | 0666);
     if (idFinalizador == -1) {
         perror("Error al crear la memoria compartida");
-        return 1;
     }
     // Adjuntar la memoria  a nuestro espacio de direcciones
     bool* terminar = (bool*)shmat(idFinalizador, NULL, 0);
     if (terminar == (bool*)-1) {
         perror("shmat");
-        return 1;
     }
 
     // Establecer la variable compartida
@@ -68,19 +80,16 @@ int main() {
     // Desvincular la memoria compartida
     if (shmdt(terminar) == -1) {
         perror("shmdt");
-        return 1;
     }
     // Desvincular la memoria compartida
     if (shmctl(idFinalizador, IPC_RMID, NULL) == -1) {
         perror("Error al eliminar la memoria compartida");
-        return 1;
     }
 
     //---------------------------------------------------------------------------
     // Cerrar semaforos
     if (sem_unlink("/semaforo_writer") == -1) {
         perror("Error al cerrar el semáforo");
-        return 1;
     }
 
     printf("Recursos liberados correctamente.\n");
