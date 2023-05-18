@@ -4,6 +4,7 @@
 #include <sys/shm.h>
 #include <fcntl.h>
 #include <semaphore.h>
+#include <stdbool.h>
 
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
@@ -25,9 +26,7 @@ key_t obtener_key_t(const char* ruta, int id_proyecto) {
 }
 
 
-
 int main() {
-
     //SEMAFOROS
     sem_t *semaforo;
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
@@ -45,17 +44,16 @@ int main() {
         return 1;
     }
     printf("La clave obtenida es %d\n", claveMemoria);
-    
+
     // Solicitar al usuario la cantidad de líneas de la memoria compartida
     int cantidadLineas;
     printf("Ingrese la cantidad de líneas de la memoria compartida: ");
     scanf("%d", &cantidadLineas);
 
-
     // Calcular el tamaño total de la memoria compartida
     size_t tamanoMemoria = cantidadLineas * sizeof(struct LineaMemoria);
 
-    // Crear la memoria compartida
+    // Crear la memoria compartida principal
     int idMemoria = shmget(claveMemoria, tamanoMemoria, IPC_CREAT | IPC_EXCL | 0666);
     if (idMemoria == -1) {
         perror("Error al crear la memoria compartida");
@@ -85,8 +83,38 @@ int main() {
         shmctl(idMemoria, IPC_RMID, NULL);
         return 1;
     }
-
     printf("Memoria compartida inicializada correctamente.\n");
+
+    //-------------------------------------------------------------------------------
+    //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA
+    key_t claveFinalizador= obtener_key_t("..//..//finalizadorKey", 123);
+    if (claveFinalizador == -1) {
+        perror("Error al obtener la clave de la memoria compartida");
+        return 1;
+    }
+    // Crear la memoria compartida principal
+    int idFinalizador = shmget(claveFinalizador, sizeof(bool), IPC_CREAT | 0666);
+    if (idFinalizador == -1) {
+        perror("Error al crear la memoria compartida");
+        return 1;
+    }
+    // Adjuntar la memoria compartida a nuestro espacio de direcciones
+    bool* terminar = (bool*)shmat(idFinalizador, NULL, 0);
+    if (terminar == (bool*)-1) {
+        perror("shmat");
+        return 1;
+    }
+
+    // Establecer la variable compartida
+    *terminar = false;
+
+    // Desvincular la memoria compartida
+    if (shmdt(terminar) == -1) {
+        perror("shmdt");
+        return 1;
+    }
+
+
 
     return 0;
 }

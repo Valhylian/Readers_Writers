@@ -54,3 +54,5 @@ dkms.conf
 /Inicializador/.idea
 /Writer/cmake-build-debug
 /Writer/.idea
+/Finalizador/cmake-build-debug
+/Finalizador/.idea
