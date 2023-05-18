@@ -220,8 +220,7 @@ int main() {
     for (int i=0; i<cantidadWriters; i++){
         // Crear una instancia de la estructura de parámetros
         parametros[i].idMemoria = idMemoria;
-
-        parametros[i].cantidadLineas = cantLineas; 
+        parametros[i].cantidadLineas = cantLineas;
         parametros[i].pid = i+1;
         parametros[i].semaforo = semaforo;
         parametros[i].segSleep = segSleep;

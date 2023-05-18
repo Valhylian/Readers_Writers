@@ -7,6 +7,7 @@
 const char* ruta = "..//..//generadorKey";
 int id_proyecto = 123; // Identificador de proyecto arbitrario
 
+
 key_t obtener_key_t(const char* ruta, int id_proyecto) {
     key_t clave;
     clave = ftok(ruta, id_proyecto);
