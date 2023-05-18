@@ -95,12 +95,14 @@ void* procesoWriter(void* argumento) {
 
         //ESPERAR SEMAFORO
         printf("Proceso: %d Esperando semaforo\n", pid);
+
         //actualizar estado de writer
         strcpy(estadoWriter->estado,  "Bloqueado");
         // agregar writer a la memoria compartida
         sem_wait(semaforoEstadoWriters);
-        agregarWriterEnPosicion(estadoWriter->pid, &estadoWriter, idMemoriaEstadoWriters);
+        agregarWriterEnPosicion(estadoWriter->pid-1, &estadoWriter, idMemoriaEstadoWriters);
         sem_post(semaforoEstadoWriters);
+
         sem_wait(semaforo);
 
         //2
@@ -130,6 +132,14 @@ void* procesoWriter(void* argumento) {
         if (lineaVacia != -1) {
             //TIEMPO DE ESCRITURA
             printf("Proceso: %d Escribiendo\n", pid);
+
+            //actualizar estado de writer
+            strcpy(estadoWriter->estado,  "Escribiendo - Con Acceso a Memoria");
+            // agregar writer a la memoria compartida
+            sem_wait(semaforoEstadoWriters);
+            agregarWriterEnPosicion(estadoWriter->pid-1, &estadoWriter, idMemoriaEstadoWriters);
+            sem_post(semaforoEstadoWriters);
+
             usleep( segEscritura*1000000);
 
             // Escribir en la próxima línea vacía
@@ -154,6 +164,14 @@ void* procesoWriter(void* argumento) {
 
         //TIEMPO DORMIDO
         printf("Proceso: %d durmiendo\n", pid);
+
+        //actualizar estado de writer
+        strcpy(estadoWriter->estado,  "Durmiendo");
+        // agregar writer a la memoria compartida
+        sem_wait(semaforoEstadoWriters);
+        agregarWriterEnPosicion(estadoWriter->pid-1, &estadoWriter, idMemoriaEstadoWriters);
+        sem_post(semaforoEstadoWriters);
+
         usleep( segSleep*1000000);
     }
     printf("Proceso: %d sale\n", pid);
@@ -222,8 +240,8 @@ int main() {
 
     //pedir semaforo para los estados de los writers
     sem_t *semaforoEstadoWriter;
-    semaforo = sem_open("/semaforo_estadoWriter", O_CREAT, 0644, 1);
-    if (semaforo == SEM_FAILED) {
+    semaforoEstadoWriter = sem_open("/semaforo_estadoWriter", O_CREAT, 0644, 1);
+    if (semaforoEstadoWriter == SEM_FAILED) {
         printf("Error al pedir el semaforo de estado de Writers");
     }
 
