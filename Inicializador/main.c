@@ -1,11 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-#include <sys/types.h>
-#include <sys/time.h>
+#include <fcntl.h>
+#include <semaphore.h>
+
+
+
 
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
@@ -28,6 +29,14 @@ key_t obtener_key_t(const char* ruta, int id_proyecto) {
 
 
 int main() {
+    //SEMAFOROS
+    sem_t *semaforo;
+    semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
+    if (semaforo == SEM_FAILED) {
+        perror("sem_open");
+        return 1;
+    }
+
     const char* ruta = "..//..//generadorKey";
     int id_proyecto = 123; // Identificador de proyecto arbitrario
     key_t claveMemoria = obtener_key_t(ruta, id_proyecto);
