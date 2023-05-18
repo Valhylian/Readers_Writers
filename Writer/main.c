@@ -200,7 +200,6 @@ int main() {
         }
     }
 
-
     // Esperar a que todos los hilos terminen su ejecución
     for (int i = 0; i < cantidadWriters; i++) {
         if (pthread_join(hilo_writers[i], NULL) != 0) {
