@@ -7,6 +7,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <time.h>
 
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
@@ -24,6 +25,23 @@ struct ParametrosHilo {
     int segSleep;
     int segEscritura;
 };
+
+//FUNCION retorna fecha y hora
+char* obtenerFechaHoraActual() {
+    time_t tiempo_actual;
+    struct tm* tiempo_local;
+    static char buffer[80];
+
+    // Obtener el tiempo actual
+    tiempo_actual = time(NULL);
+    // Convertir el tiempo a la hora local
+    tiempo_local = localtime(&tiempo_actual);
+    // Formatear la fecha y la hora en una cadena de caracteres
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", tiempo_local);
+
+    return buffer;
+}
+
 
 //OBTENER KEY UNICO DE MEMORIA-----------------------------
 key_t obtener_key_t(const char* ruta, int id_proyecto) {
@@ -77,6 +95,7 @@ void* procesoWriter(void* argumento) {
         //2
         finalizar = *terminar;
         if (finalizar){
+            sem_post(semaforo); //libera semaforo
             break;
         }
 
@@ -102,11 +121,13 @@ void* procesoWriter(void* argumento) {
             printf("Proceso: %d Escribiendo\n", pid);
             usleep( segEscritura*1000000);
 
-
             // Escribir en la próxima línea vacía
             lineas[lineaVacia].pid = pid;
-            strcpy(lineas[lineaVacia].horaFecha, "horaFecha"); //aqui tiene que ir la hora y la fecha real!
-            printf("Escritura exitosa en la línea %d\n", lineaVacia + 1);
+            char* fecha_hora_actual = obtenerFechaHoraActual();
+            strcpy(lineas[lineaVacia].horaFecha, fecha_hora_actual);
+            lineas[lineaVacia].numLinea = lineaVacia;
+
+            printf("Escritura exitosa en la línea %d\n", lineaVacia);
         } else {
             printf("No hay líneas vacías disponibles\n");
         }
@@ -114,7 +135,6 @@ void* procesoWriter(void* argumento) {
         // Desvincular la memoria compartida
         if (shmdt(memoriaCompartida) == -1) {
             perror("Error al desvincular la memoria compartida");
-            break;
         }
 
 
@@ -127,13 +147,10 @@ void* procesoWriter(void* argumento) {
         printf("Proceso: %d durmiendo\n", pid);
         usleep( segSleep*1000000);
 
-
     }
+    printf("Proceso: %d sale\n", pid);
     // Desvincular la memoria compartida
-    if (shmdt(terminar) == -1) {
-        perror("shmdt");
-        return NULL;
-    }
+    shmdt(terminar);
     pthread_exit(NULL);
 }
 
