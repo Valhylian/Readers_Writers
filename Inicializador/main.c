@@ -5,9 +5,6 @@
 #include <fcntl.h>
 #include <semaphore.h>
 
-
-
-
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -15,7 +12,7 @@ struct LineaMemoria {
     int numLinea;
 };
 
-
+//OBTENER KEY UNICO PARA LA MEMORIA COMPARTIDA
 key_t obtener_key_t(const char* ruta, int id_proyecto) {
     key_t clave;
 
@@ -28,7 +25,9 @@ key_t obtener_key_t(const char* ruta, int id_proyecto) {
 }
 
 
+
 int main() {
+
     //SEMAFOROS
     sem_t *semaforo;
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
@@ -37,6 +36,7 @@ int main() {
         return 1;
     }
 
+    //ESPACIO DE MEMORIA COMPARTIDA PRINCIPAL--------------------------------------------
     const char* ruta = "..//..//generadorKey";
     int id_proyecto = 123; // Identificador de proyecto arbitrario
     key_t claveMemoria = obtener_key_t(ruta, id_proyecto);
@@ -45,11 +45,9 @@ int main() {
         return 1;
     }
     printf("La clave obtenida es %d\n", claveMemoria);
-
-
-    int cantidadLineas;
-
+    
     // Solicitar al usuario la cantidad de líneas de la memoria compartida
+    int cantidadLineas;
     printf("Ingrese la cantidad de líneas de la memoria compartida: ");
     scanf("%d", &cantidadLineas);
 
