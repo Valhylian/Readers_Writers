@@ -20,9 +20,11 @@ struct LineaMemoria {
 //Estructura para pasar paramtros al hilo Writer
 struct ParametrosHilo {
     int idMemoria;
+    int idMemoriaEstadoWriters;
     int cantidadLineas;
     int pid;
     sem_t *semaforo;
+    sem_t *semaforoEstadoWriters;
     int segSleep;
     int segEscritura;
     struct Writer *estadoWriter;
@@ -62,9 +64,11 @@ int obtenerCantLineas (int idMemoria){
 void* procesoWriter(void* argumento) {
     struct ParametrosHilo* parametros = (struct ParametrosHilo*)argumento;
     int idMemoria = parametros->idMemoria;
+    int idMemoriaEstadoWriters = parametros->idMemoriaEstadoWriters;
     int cantidadLineas = parametros->cantidadLineas;
     int pid = parametros->pid;
     sem_t *semaforo = parametros->semaforo;
+    sem_t *semaforoEstadoWriters = parametros->semaforoEstadoWriters;
     int segSleep = parametros->segSleep;
     int segEscritura = parametros->segEscritura;
     struct Writer *estadoWriter = parametros->estadoWriter;
@@ -91,6 +95,12 @@ void* procesoWriter(void* argumento) {
 
         //ESPERAR SEMAFORO
         printf("Proceso: %d Esperando semaforo\n", pid);
+        //actualizar estado de writer
+        strcpy(estadoWriter->estado,  "Bloqueado");
+        // agregar writer a la memoria compartida
+        sem_wait(semaforoEstadoWriters);
+        agregarWriterEnPosicion(estadoWriter->pid, &estadoWriter, idMemoriaEstadoWriters);
+        sem_post(semaforoEstadoWriters);
         sem_wait(semaforo);
 
         //2
@@ -233,6 +243,8 @@ int main() {
         parametros[i].segSleep = segSleep;
         parametros[i].segEscritura = segEscritura;
         parametros[i].estadoWriter = &estadoWriter;
+        parametros[i].idMemoriaEstadoWriters = idmemoriaWriters;
+        parametros[i].semaforoEstadoWriters = semaforoEstadoWriter;
 
         if (pthread_create(&hilo_writers[i], NULL, procesoWriter, (void*)&parametros[i]) != 0) {
             perror("pthread_create");
