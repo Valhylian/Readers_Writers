@@ -146,17 +146,18 @@ int main() {
     }
     printf("El id obtenido es %d\n", idMemoria);
 
-    for (int i=1; i<cantidadWriters+1; i++){
-        // Crear una instancia de la estructura de parámetros
-        struct ParametrosHilo parametros;
-        parametros.idMemoria = idMemoria;
-        parametros.cantidadLineas = 10; //cambiar estooooooooooooooooooooo
-        parametros.pid = i;
-        parametros.semaforo = semaforo;
-        parametros.segSleep = segSleep;
-        parametros.segEscritura = segEscritura;
+    struct ParametrosHilo parametros[cantidadWriters];
 
-        if (pthread_create(&hilo_writers[i], NULL, procesoWriter, (void*)&parametros) != 0) {
+    for (int i=0; i<cantidadWriters; i++){
+        // Crear una instancia de la estructura de parámetros
+        parametros[i].idMemoria = idMemoria;
+        parametros[i].cantidadLineas = 10; //cambiar estooooooooooooooooooooo
+        parametros[i].pid = i+1;
+        parametros[i].semaforo = semaforo;
+        parametros[i].segSleep = segSleep;
+        parametros[i].segEscritura = segEscritura;
+
+        if (pthread_create(&hilo_writers[i], NULL, procesoWriter, (void*)&parametros[i]) != 0) {
             perror("pthread_create");
             return 1;
         }
@@ -164,7 +165,7 @@ int main() {
 
 
     // Esperar a que todos los hilos terminen su ejecución
-    for (int i = 1; i < cantidadWriters+1; i++) {
+    for (int i = 0; i < cantidadWriters; i++) {
         if (pthread_join(hilo_writers[i], NULL) != 0) {
             perror("pthread_join");
             return 1;
