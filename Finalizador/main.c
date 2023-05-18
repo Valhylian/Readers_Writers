@@ -2,7 +2,6 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <semaphore.h>
-
 #include <stdbool.h>
 
 const char* ruta = "..//..//generadorKey";
@@ -10,7 +9,6 @@ int id_proyecto = 123; // Identificador de proyecto arbitrario
 
 key_t obtener_key_t(const char* ruta, int id_proyecto) {
     key_t clave;
-
     clave = ftok(ruta, id_proyecto);
     if (clave == -1) {
         perror("ftok");
@@ -35,13 +33,14 @@ int main() {
         return 1;
     }
 
+
+
     // Desvincular la memoria compartida
     if (shmctl(idMemoria, IPC_RMID, NULL) == -1) {
         perror("Error al eliminar la memoria compartida");
         return 1;
     }
     //--------------------------------------------------------------------------
-
     //CERRAR MEMORIA DE FINALIZACION
     //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA
     key_t claveFinalizador= obtener_key_t("..//..//finalizadorKey", 123);

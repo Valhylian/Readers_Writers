@@ -42,7 +42,20 @@ char* obtenerFechaHoraActual() {
     return buffer;
 }
 
+//OBTENER TAMANO DE LA MEMORIA
+int obtenerCantLineas (int idMemoria){
+    // Obtener información sobre la memoria compartida
+    struct shmid_ds info;
+    if (shmctl(idMemoria, IPC_STAT, &info) == -1) {
+        perror("shmctl");
+        return 1;
+    }
+    // Obtener el tamaño de la memoria compartida
+    size_t tamanoMemoria = info.shm_segsz;
+    int lineas = tamanoMemoria / sizeof(struct LineaMemoria);
+    return lineas;
 
+}
 //OBTENER KEY UNICO DE MEMORIA-----------------------------
 key_t obtener_key_t(const char* ruta, int id_proyecto) {
     key_t clave;
@@ -199,13 +212,16 @@ int main() {
         return 1;
     }
     printf("El id obtenido es %d\n", idMemoria);
+    int cantLineas = obtenerCantLineas (idMemoria);
+    printf("cantLineas %d\n", cantLineas);
 
     struct ParametrosHilo parametros[cantidadWriters];
 
     for (int i=0; i<cantidadWriters; i++){
         // Crear una instancia de la estructura de parámetros
         parametros[i].idMemoria = idMemoria;
-        parametros[i].cantidadLineas = 20; //cambiar estooooooooooooooooooooo
+
+        parametros[i].cantidadLineas = cantLineas; 
         parametros[i].pid = i+1;
         parametros[i].semaforo = semaforo;
         parametros[i].segSleep = segSleep;
