@@ -10,9 +10,11 @@
 //OBTENER KEY UNICO PARA LA MEMORIA COMPARTIDA
 key_t obtener_key_t(const char* ruta, int id_proyecto) {
     key_t clave;
-
     clave = ftok(ruta, id_proyecto);
-
+    if (clave == -1) {
+        perror("ftok");
+        // Manejo del error, si es necesario
+    }
     return clave;
 }
 

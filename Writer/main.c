@@ -96,11 +96,6 @@ void* procesoWriter(void* argumento) {
     printf("El valor es: %d\n", finalizar);
 
     while(!*terminar){
-        //1
-        finalizar = *terminar;
-        if (finalizar){
-            break;
-        }
 
         //ESPERAR SEMAFORO
         printf("Proceso: %d Esperando semaforo\n", pid);

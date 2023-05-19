@@ -6,7 +6,6 @@
 #include <semaphore.h>
 #include <stdbool.h>
 
-
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -26,9 +25,8 @@ key_t obtener_key_t(const char* ruta, int id_proyecto) {
     return clave;
 }
 
-
 int main() {
-    //SEMAFOROS
+    //CREAR SEMAFORO PRINCIPAL (WRITER)----------------------------------------------------
     sem_t *semaforo;
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
     if (semaforo == SEM_FAILED) {
@@ -36,7 +34,7 @@ int main() {
         return 1;
     }
 
-    //ESPACIO DE MEMORIA COMPARTIDA PRINCIPAL--------------------------------------------
+    //PEDIR ESPACIO DE MEMORIA COMPARTIDA PRINCIPAL--------------------------------------------
     const char* ruta = "..//..//generadorKey";
     int id_proyecto = 123; // Identificador de proyecto arbitrario
     key_t claveMemoria = obtener_key_t(ruta, id_proyecto);
@@ -44,9 +42,9 @@ int main() {
         perror("Error al obtener la clave de la memoria compartida");
         return 1;
     }
-    printf("La clave obtenida es %d\n", claveMemoria);
+    //printf("La clave obtenida es %d\n", claveMemoria);
 
-    // Solicitar al usuario la cantidad de líneas de la memoria compartida
+    //SOLICITAR CANTIDAD DE LINEAS AL USUARIO---------------------------------------------------
     int cantidadLineas;
     printf("Ingrese la cantidad de líneas de la memoria compartida: ");
     scanf("%d", &cantidadLineas);
@@ -54,7 +52,7 @@ int main() {
     // Calcular el tamaño total de la memoria compartida
     size_t tamanoMemoria = cantidadLineas * sizeof(struct LineaMemoria);
 
-    // Crear la memoria compartida principal
+    //CREAR LA MEMORIA COMPARTIDA PRINCIPAL----------------------------------------------------
     int idMemoria = shmget(claveMemoria, tamanoMemoria, IPC_CREAT | IPC_EXCL | 0666);
     if (idMemoria == -1) {
         perror("Error al crear la memoria compartida");
@@ -84,7 +82,6 @@ int main() {
         shmctl(idMemoria, IPC_RMID, NULL);
         return 1;
     }
-    printf("Memoria compartida inicializada correctamente.\n");
 
     //-------------------------------------------------------------------------------
     //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA
@@ -93,7 +90,7 @@ int main() {
         perror("Error al obtener la clave de la memoria compartida");
         return 1;
     }
-    // Crear la memoria compartida principal
+    // Crear la memoria compartida finalizadora
     int idFinalizador = shmget(claveFinalizador, sizeof(bool), IPC_CREAT | 0666);
     if (idFinalizador == -1) {
         perror("Error al crear la memoria compartida");
@@ -115,7 +112,7 @@ int main() {
         return 1;
     }
 
-
+    printf("Memoria compartida inicializada correctamente.\n");
 
     return 0;
 }

@@ -4,10 +4,16 @@
 #include <semaphore.h>
 #include <stdbool.h>
 
+//MEMORIA Y SEMAFOROS A FINALIZAR:
+//1- MEMORIA PRINCIPAL
+//2- SEMAFORO PRINCIPAL (WRITER)
+//3- MEMORIA FINALIZADORA
+//4- MEMORIA ESTADO WRITERS
+
 const char* ruta = "..//..//generadorKey";
 int id_proyecto = 123; // Identificador de proyecto arbitrario
 
-
+//obtener key
 key_t obtener_key_t(const char* ruta, int id_proyecto) {
     key_t clave;
     clave = ftok(ruta, id_proyecto);
