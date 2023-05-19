@@ -82,6 +82,7 @@ int imprimirMemoria() {
 
 
 int main() {
+    imprimirMemoria();
     imprimirEstadoWriters();
     return 0;
 }

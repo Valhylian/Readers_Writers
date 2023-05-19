@@ -43,7 +43,6 @@ int agregarWriterEnPosicion(int posicion, struct Writer* writer, int idMemoria) 
         perror("Error al desvincular la memoria compartida");
         return -1;
     }
-    printf("esooo\n");
     return 0;
 }
 

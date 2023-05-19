@@ -53,13 +53,27 @@ int imprimirEstadoWriters() {
 
     // Obtener el número de líneas de la memoria compartida
     int cantidadLineas = obtenerCantWriters (idMemoria);
-    printf("cantLineas %d:\n", cantidadLineas);
 
     // Recorrer las líneas de la memoria compartida e imprimir sus valores
     struct Writer* writer = (struct Writer*)memoriaCompartida;
     for (int i = 0; i < cantidadLineas; i++) {
         printf("PID %d:\n", writer[i].pid);
-        printf("  Estado: %d\n", writer[i].estado);
+        if (writer[i].estado == 0){
+            printf("  Estado: Creado\n");
+        }
+        else if (writer[i].estado == 1){
+            printf("  Estado: Bloqueado\n");
+        }
+        else if (writer[i].estado == 2){
+            printf("  Estado: Escribiendo - con acceso a memoria\n");
+        }
+        else if (writer[i].estado == 3){
+            printf("  Estado: Durmiendo\n");
+        }
+        else {
+            printf("  Estado: Default\n");
+        }
+
     }
 
     // Desvincular la memoria compartida

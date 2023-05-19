@@ -31,6 +31,14 @@ struct ParametrosHilo {
 };
 
 
+//ACTUALIZAR ESTADO DEL WRITER
+int actulizarEstadoWriter(int estado, sem_t *semaforoEstadoWriters, struct Writer *estadoWriter, int idMemoriaEstadoWriters){
+    sem_wait(semaforoEstadoWriters);
+    estadoWriter->estado = estado;
+    agregarWriterEnPosicion(estadoWriter->pid-1, estadoWriter, idMemoriaEstadoWriters);
+    sem_post(semaforoEstadoWriters);
+}
+
 //FUNCION retorna fecha y hora
 char* obtenerFechaHoraActual() {
     time_t tiempo_actual;
@@ -95,17 +103,9 @@ void* procesoWriter(void* argumento) {
         }
 
         //ESPERAR SEMAFORO
-
-        //actualizar estado de writer
-        estadoWriter->estado = 1;
         printf("Proceso: %d Esperando semaforo\n", pid);
-        // agregar writer a la memoria compartida
-
-        /*
-        sem_wait(semaforoEstadoWriters);
-        agregarWriterEnPosicion(estadoWriter->pid, &estadoWriter, idMemoriaEstadoWriters);
-        printf("Proceso: %d \n", pid);
-        sem_post(semaforoEstadoWriters);*/
+        //actualizar estado
+        actulizarEstadoWriter(1, semaforoEstadoWriters, estadoWriter, idMemoriaEstadoWriters);
         sem_wait(semaforo);
 
         //2
@@ -135,6 +135,7 @@ void* procesoWriter(void* argumento) {
         if (lineaVacia != -1) {
             //TIEMPO DE ESCRITURA
             printf("Proceso: %d Escribiendo\n", pid);
+            actulizarEstadoWriter(2, semaforoEstadoWriters, estadoWriter, idMemoriaEstadoWriters);
             usleep( segEscritura*1000000);
 
             // Escribir en la próxima línea vacía
@@ -159,6 +160,7 @@ void* procesoWriter(void* argumento) {
 
         //TIEMPO DORMIDO
         printf("Proceso: %d durmiendo\n", pid);
+        actulizarEstadoWriter(3, semaforoEstadoWriters, estadoWriter, idMemoriaEstadoWriters);
         usleep( segSleep*1000000);
     }
     printf("Proceso: %d sale\n", pid);
