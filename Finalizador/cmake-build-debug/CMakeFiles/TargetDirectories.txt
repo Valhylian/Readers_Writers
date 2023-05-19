@@ -1,3 +1,3 @@
-/home/gera/Repositorios/Readers_Writers/Finalizador/cmake-build-debug/CMakeFiles/Finalizador.dir
-/home/gera/Repositorios/Readers_Writers/Finalizador/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/gera/Repositorios/Readers_Writers/Finalizador/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/valhylian/Documents/GitHub/Readers_Writers/Finalizador/cmake-build-debug/CMakeFiles/Finalizador.dir
+/home/valhylian/Documents/GitHub/Readers_Writers/Finalizador/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/valhylian/Documents/GitHub/Readers_Writers/Finalizador/cmake-build-debug/CMakeFiles/rebuild_cache.dir
