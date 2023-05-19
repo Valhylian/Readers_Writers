@@ -2,6 +2,12 @@
 #include <string.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <fcntl.h>
+#include <semaphore.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <stdbool.h>
+#include <time.h>
 
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
