@@ -101,10 +101,11 @@ void* procesoWriter(void* argumento) {
         printf("Proceso: %d Esperando semaforo\n", pid);
         // agregar writer a la memoria compartida
 
+        /*
         sem_wait(semaforoEstadoWriters);
         agregarWriterEnPosicion(estadoWriter->pid, &estadoWriter, idMemoriaEstadoWriters);
         printf("Proceso: %d \n", pid);
-        sem_post(semaforoEstadoWriters);
+        sem_post(semaforoEstadoWriters);*/
         sem_wait(semaforo);
 
         //2
@@ -213,7 +214,6 @@ int main() {
     }
     printf("El id obtenido es %d\n", idMemoria);
     int cantLineas = obtenerCantLineas (idMemoria);
-    printf("cantLineas %d\n", cantLineas);
 
 
 
@@ -239,8 +239,6 @@ int main() {
         // Crear estado Writer
         arregloEstadosWriters[i].pid = i+1;
         arregloEstadosWriters[i].estado = 0;
-
-        // agregar writer a la memoria compartida
 
         agregarWriterEnPosicion(i, &arregloEstadosWriters[i], idmemoriaWriters);
 
