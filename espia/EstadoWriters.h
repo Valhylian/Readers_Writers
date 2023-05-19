@@ -10,7 +10,7 @@
 // ESTRUCTURA WRITERS
 struct Writer {
     int pid;
-    char estado[50];
+    int estado;
 };
 
 //OBTENER TAMANO DE LA MEMORIA
@@ -23,6 +23,7 @@ int obtenerCantWriters (int idMemoria){
     }
     // Obtener el tamaño de la memoria compartida
     size_t tamanoMemoria = info.shm_segsz;
+
     int cant = tamanoMemoria / sizeof(struct Writer);
     return cant;
 }
@@ -52,12 +53,13 @@ int imprimirEstadoWriters() {
 
     // Obtener el número de líneas de la memoria compartida
     int cantidadLineas = obtenerCantWriters (idMemoria);
+    printf("cantLineas %d:\n", cantidadLineas);
 
     // Recorrer las líneas de la memoria compartida e imprimir sus valores
     struct Writer* writer = (struct Writer*)memoriaCompartida;
     for (int i = 0; i < cantidadLineas; i++) {
         printf("PID %d:\n", writer[i].pid);
-        printf("  Estado: %c\n", writer[i].estado);
+        printf("  Estado: %d\n", writer[i].estado);
     }
 
     // Desvincular la memoria compartida

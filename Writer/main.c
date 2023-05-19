@@ -30,6 +30,7 @@ struct ParametrosHilo {
     struct Writer *estadoWriter;
 };
 
+
 //FUNCION retorna fecha y hora
 char* obtenerFechaHoraActual() {
     time_t tiempo_actual;
@@ -96,7 +97,7 @@ void* procesoWriter(void* argumento) {
         //ESPERAR SEMAFORO
 
         //actualizar estado de writer
-        strcpy(estadoWriter->estado,  "Bloqueado");
+        estadoWriter->estado = 1;
         printf("Proceso: %d Esperando semaforo\n", pid);
         // agregar writer a la memoria compartida
 
@@ -214,7 +215,7 @@ int main() {
     int cantLineas = obtenerCantLineas (idMemoria);
     printf("cantLineas %d\n", cantLineas);
 
-    struct ParametrosHilo parametros[cantidadWriters];
+
 
     //pedir memoria compartida para los estados de los writers
     int idmemoriaWriters = memoriaEstadoWriters(cantidadWriters);
@@ -230,13 +231,18 @@ int main() {
         printf("Error al pedir el semaforo de estado de Writers");
     }
 
+    struct ParametrosHilo parametros[cantidadWriters];
+    struct Writer arregloEstadosWriters[cantidadWriters];
+
+
     for (int i=0; i<cantidadWriters; i++){
         // Crear estado Writer
-        struct Writer *estadoWriter;
-        estadoWriter->pid = i+1;
-        strcpy(estadoWriter->estado,  "En creacion");
+        arregloEstadosWriters[i].pid = i+1;
+        arregloEstadosWriters[i].estado = 0;
+
         // agregar writer a la memoria compartida
-        agregarWriterEnPosicion(i, estadoWriter, idmemoriaWriters);
+
+        agregarWriterEnPosicion(i, &arregloEstadosWriters[i], idmemoriaWriters);
 
         // Crear una instancia de la estructura de parámetros
         parametros[i].idMemoria = idMemoria;
@@ -245,7 +251,7 @@ int main() {
         parametros[i].semaforo = semaforo;
         parametros[i].segSleep = segSleep;
         parametros[i].segEscritura = segEscritura;
-        parametros[i].estadoWriter = &estadoWriter;
+        parametros[i].estadoWriter = &arregloEstadosWriters[i];
         parametros[i].idMemoriaEstadoWriters = idmemoriaWriters;
         parametros[i].semaforoEstadoWriters = semaforoEstadoWriter;
 

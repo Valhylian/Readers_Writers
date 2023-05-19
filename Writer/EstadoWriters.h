@@ -8,14 +8,15 @@
 // ESTRUCTURA WRITERS
 struct Writer {
     int pid;
-    char estado[50];
+    int estado; //1-creacion //2-escriendo //3-durmiendo
 };
 
 //PEDIR MEMORORIA PARA ESTADO WRITERS
 // Return -1 = error
 int memoriaEstadoWriters(int cantWriters){
     key_t claveWriters = obtener_key_t("..//..//generadorWriters", 123);
-    int idMemoria = shmget(claveWriters, sizeof(struct Writer), IPC_CREAT | IPC_EXCL | 0666);
+    size_t tamanoMemoria = cantWriters * sizeof(struct Writer);
+    int idMemoria = shmget(claveWriters, tamanoMemoria, IPC_CREAT | IPC_EXCL | 0666);
     return idMemoria;
 }
 
