@@ -94,12 +94,15 @@ void* procesoWriter(void* argumento) {
         }
 
         //ESPERAR SEMAFORO
-        printf("Proceso: %d Esperando semaforo\n", pid);
+
         //actualizar estado de writer
         strcpy(estadoWriter->estado,  "Bloqueado");
+        printf("Proceso: %d Esperando semaforo\n", pid);
         // agregar writer a la memoria compartida
+
         sem_wait(semaforoEstadoWriters);
         agregarWriterEnPosicion(estadoWriter->pid, &estadoWriter, idMemoriaEstadoWriters);
+        printf("Proceso: %d \n", pid);
         sem_post(semaforoEstadoWriters);
         sem_wait(semaforo);
 
@@ -222,18 +225,18 @@ int main() {
 
     //pedir semaforo para los estados de los writers
     sem_t *semaforoEstadoWriter;
-    semaforo = sem_open("/semaforo_estadoWriter", O_CREAT, 0644, 1);
-    if (semaforo == SEM_FAILED) {
+    semaforoEstadoWriter = sem_open("/semaforo_estadoWriter", O_CREAT, 0644, 1);
+    if (semaforoEstadoWriter == SEM_FAILED) {
         printf("Error al pedir el semaforo de estado de Writers");
     }
 
     for (int i=0; i<cantidadWriters; i++){
         // Crear estado Writer
-        struct Writer estadoWriter;
-        estadoWriter.pid = i+1;
-        strcpy(estadoWriter.estado,  "En creacion");
+        struct Writer *estadoWriter;
+        estadoWriter->pid = i+1;
+        strcpy(estadoWriter->estado,  "En creacion");
         // agregar writer a la memoria compartida
-        agregarWriterEnPosicion(i, &estadoWriter, idmemoriaWriters);
+        agregarWriterEnPosicion(i, estadoWriter, idmemoriaWriters);
 
         // Crear una instancia de la estructura de parámetros
         parametros[i].idMemoria = idMemoria;

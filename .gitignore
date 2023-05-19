@@ -50,6 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+/.idea
 /Inicializador/cmake-build-debug
 /Inicializador/.idea
 /Writer/cmake-build-debug

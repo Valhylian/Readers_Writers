@@ -1,24 +1,20 @@
+//
+// Created by valhylian on 19/05/23.
+//
 #include <stdio.h>
 #include <string.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-#include <fcntl.h>
-#include <semaphore.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <time.h>
-#include "EstadoWriters.h"
 
-// Estructura para almacenar la información de cada línea en la memoria compartida
-struct LineaMemoria {
+#ifndef ESPIA_ESTADOWRITERS_H
+// ESTRUCTURA WRITERS
+struct Writer {
     int pid;
-    char horaFecha[50];
-    int numLinea;
+    char estado[50];
 };
 
 //OBTENER TAMANO DE LA MEMORIA
-int obtenerCantLineas (int idMemoria){
+int obtenerCantWriters (int idMemoria){
     // Obtener información sobre la memoria compartida
     struct shmid_ds info;
     if (shmctl(idMemoria, IPC_STAT, &info) == -1) {
@@ -27,14 +23,14 @@ int obtenerCantLineas (int idMemoria){
     }
     // Obtener el tamaño de la memoria compartida
     size_t tamanoMemoria = info.shm_segsz;
-    int lineas = tamanoMemoria / sizeof(struct LineaMemoria);
-    return lineas;
+    int cant = tamanoMemoria / sizeof(struct Writer);
+    return cant;
 }
 
 //IMPRIMIR MEMORIA COMPARTIDA
-int imprimirMemoria() {
+int imprimirEstadoWriters() {
     // Obtener la clave de la memoria compartida
-    key_t claveMemoria = ftok("..//..//generadorKey", 123);
+    key_t claveMemoria = ftok("..//..//generadorWriters", 123);
     if (claveMemoria == -1) {
         perror("ftok");
         return 1;
@@ -55,20 +51,13 @@ int imprimirMemoria() {
     }
 
     // Obtener el número de líneas de la memoria compartida
-    int cantidadLineas = obtenerCantLineas (idMemoria);
+    int cantidadLineas = obtenerCantWriters (idMemoria);
 
     // Recorrer las líneas de la memoria compartida e imprimir sus valores
-    struct LineaMemoria* lineas = (struct LineaMemoria*)memoriaCompartida;
+    struct Writer* writer = (struct Writer*)memoriaCompartida;
     for (int i = 0; i < cantidadLineas; i++) {
-        printf("Linea %d:\n", lineas[i].numLinea);
-        if ( lineas[i].pid == 0){
-            printf("    ---------------------\n");
-        }
-        else{
-            printf("  PID: %d\n", lineas[i].pid);
-            printf("  Hora y fecha: %s\n", lineas[i].horaFecha);
-        }
-
+        printf("PID %d:\n", writer[i].pid);
+        printf("  Estado: %c\n", writer[i].estado);
     }
 
     // Desvincular la memoria compartida
@@ -80,8 +69,6 @@ int imprimirMemoria() {
     return 0;
 }
 
+#define ESPIA_ESTADOWRITERS_H
 
-int main() {
-    imprimirMemoria();
-    return 0;
-}
+#endif //ESPIA_ESTADOWRITERS_H
