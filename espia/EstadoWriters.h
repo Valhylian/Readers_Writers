@@ -8,6 +8,7 @@
 
 #ifndef ESPIA_ESTADOWRITERS_H
 // ESTRUCTURA WRITERS
+
 struct Writer {
     int pid;
     int estado;

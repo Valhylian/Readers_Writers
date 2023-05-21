@@ -120,7 +120,7 @@ void limpiarBitacora(sem_t * semaforo){
     FILE* archivo = fopen(rutaArchivo, "w");
     fputs("",archivo);
     fclose(archivo);
-    sem_wait(semaforo);
+    sem_post(semaforo);
 
 }
 void parsearInfoBitacora(char * buffer, int pId, const char * tipo, char * fechaHora, char * accion){
