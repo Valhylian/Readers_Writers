@@ -9,7 +9,8 @@
 #include <stdbool.h>
 #include <time.h>
 #include "EstadoWriters.h"
-
+#include "../Bitacora/Bitacora.h"
+sem_t * semaforoBitacora;
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -79,10 +80,17 @@ int imprimirMemoria() {
 
     return 0;
 }
-
+void imprimirBitacora(){
+    printf("%s", "-> Bitacora <-");
+    char * contenido = leerBitacora(semaforoBitacora);
+    printf("%s",contenido);
+    free(contenido); //importante porque reserva espacio con malloc
+}
 
 int main() {
+    semaforoBitacora = obtenerSemaforoBitacora();
     imprimirMemoria();
     imprimirEstadoWriters();
+    imprimirBitacora();
     return 0;
 }

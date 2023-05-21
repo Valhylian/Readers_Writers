@@ -9,7 +9,8 @@
 #include <stdbool.h>
 #include <time.h>
 #include "EstadoWriters.h"
-
+#include "../Bitacora/Bitacora.h"
+sem_t * semaforo_bitacora;
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -138,6 +139,11 @@ void* procesoWriter(void* argumento) {
             char* fecha_hora_actual = obtenerFechaHoraActual();
             strcpy(lineas[lineaVacia].horaFecha, fecha_hora_actual);
             lineas[lineaVacia].numLinea = lineaVacia;
+            //SUBIR DATOS A LA BITACORA
+            char buffer[100];
+            parsearInfoBitacora(buffer, pid, "Reader", fecha_hora_actual, "Escribiendo");
+            escribirBitacora(semaforo_bitacora, buffer);
+            //SUBIR DATOS A LA BITACORA
 
             printf("Escritura exitosa en la línea %d\n", lineaVacia);
         } else {
@@ -166,6 +172,7 @@ void* procesoWriter(void* argumento) {
 
 
 int main() {
+    semaforo_bitacora=obtenerSemaforoBitacora();
     //SEMAFORO
     sem_t *semaforo;
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
