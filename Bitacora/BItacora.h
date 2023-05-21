@@ -1,0 +1,8 @@
+//
+// Created by gera on 20/05/23.
+//
+
+#ifndef READERS_WRITERS_BITACORA_H
+#define READERS_WRITERS_BITACORA_H
+
+#endif //READERS_WRITERS_BITACORA_H
