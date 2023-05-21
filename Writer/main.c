@@ -103,6 +103,7 @@ void* procesoWriter(void* argumento) {
         actulizarEstadoWriter(1, semaforoEstadoWriters, estadoWriter, idMemoriaEstadoWriters);
         sem_wait(semaforo);
 
+
         //2
         finalizar = *terminar;
         if (finalizar){
@@ -175,7 +176,6 @@ int main() {
     }
 
     //INICIAR MEMORIA-ESTADO WRITERS
-
     int cantidadWriters;
     int segEscritura;
     int segSleep;
@@ -211,8 +211,6 @@ int main() {
     }
     printf("El id obtenido es %d\n", idMemoria);
     int cantLineas = obtenerCantLineas (idMemoria);
-
-
 
     //pedir memoria compartida para los estados de los writers
     int idmemoriaWriters = memoriaEstadoWriters(cantidadWriters);
