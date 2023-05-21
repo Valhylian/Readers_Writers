@@ -141,7 +141,7 @@ void* procesoWriter(void* argumento) {
             lineas[lineaVacia].numLinea = lineaVacia;
             //SUBIR DATOS A LA BITACORA
             char buffer[100];
-            parsearInfoBitacora(buffer, pid, "Reader", fecha_hora_actual, "Escribiendo");
+            parsearInfoBitacora(buffer, pid, "Writer", fecha_hora_actual, "Escribiendo");
             escribirBitacora(semaforo_bitacora, buffer);
             //SUBIR DATOS A LA BITACORA
 
