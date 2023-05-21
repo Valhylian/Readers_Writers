@@ -15,8 +15,6 @@ int main() {
     char* contenidoLeido = leerBitacora(sem);
     printf("%s", contenidoLeido);
     free(contenidoLeido);
-
-
     finalizarSemaforoBitacora(sem);
 
     return 0;

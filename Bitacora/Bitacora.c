@@ -95,5 +95,25 @@ void finalizarSemaforoBitacora(sem_t * semaforo) {
         sem_destroy(semaforo);
     }
 }
+void estadoToString(char * estado ,int i){
+    switch (i) {
+        case 1:
+            strcpy(estado, "Creacion");
+            break;
+        case 2:
+            strcpy(estado, "Escribiendo");
+            break;
+        case 3:
+            strcpy(estado, "Durmiendo");
+            break;
+        case 4:
+            strcpy(estado, "Leyendo");
+            break;
+        default:
+            strcpy(estado, "estado no definido");
+
+    }
+
+}
 
 
