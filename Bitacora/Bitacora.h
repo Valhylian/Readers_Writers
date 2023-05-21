@@ -16,7 +16,9 @@ struct LineaMemoria {
 };
 
 char * estadoToString(char * estado ,int i);
-void escribirBitacora(char * texto);
-char * leerBitacora();
-void finalizarSemaforoBitacora();
+void escribirBitacora(sem_t * semaforo, char * texto);
+char * leerBitacora(sem_t * semaforo);
+void finalizarSemaforoBitacora(sem_t * semaforo);
+void limpiarBitacora(sem_t * semaforo);
+sem_t* obtenerSemaforoBitacora();
 #endif //READERS_WRITERS_BITACORA_H

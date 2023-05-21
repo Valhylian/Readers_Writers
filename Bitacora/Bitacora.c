@@ -36,10 +36,8 @@ sem_t* obtenerSemaforoBitacora() {
     return semaforo;
 }
 
-void escribirBitacora(char* contenido) {
-    sem_t* semaforo = obtenerSemaforoBitacora();
+void escribirBitacora(sem_t * semaforo, char* contenido) {
     sem_wait(semaforo);
-
     const char* rutaArchivo = obtenerRutaBitacora();
     FILE* archivo = fopen(rutaArchivo, "a");
     if (archivo == NULL) {
@@ -49,12 +47,12 @@ void escribirBitacora(char* contenido) {
     }
 
     fputs(contenido, archivo);
+    fputs("\n", archivo);
     fclose(archivo);
     sem_post(semaforo);
 }
 
-char* leerBitacora() {
-    sem_t* semaforo = obtenerSemaforoBitacora();
+char* leerBitacora(sem_t* semaforo) {
     sem_wait(semaforo);
     const char* rutaArchivo = obtenerRutaBitacora();
 
@@ -89,14 +87,13 @@ char* leerBitacora() {
     contenido[size] = '\0';  // Agregar el carácter nulo al final del contenido
     fclose(archivo);
     sem_post(semaforo);
-
     return contenido;
 }
 
-void finalizarSemaforoBitacora() {
-    sem_t* semaforo = obtenerSemaforoBitacora();
+void finalizarSemaforoBitacora(sem_t * semaforo) {
     if (semaforo != NULL) {
         sem_destroy(semaforo);
     }
 }
+
 

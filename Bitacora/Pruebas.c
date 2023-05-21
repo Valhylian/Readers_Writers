@@ -2,24 +2,22 @@
 // Created by gera on 20/05/23.
 //
 #include <stdio.h>
-#include <pthread.h>
 #include <semaphore.h>
 #include "Bitacora.h"
 #include "stdlib.h"
-sem_t semaforo;
+
 
 
 
 int main() {
-    finalizarSemaforoBitacora();
-    char* contenidoLeido = leerBitacora();
+    sem_t * sem = obtenerSemaforoBitacora();
+    escribirBitacora(sem,"Hola hola ya funciona");
+    char* contenidoLeido = leerBitacora(sem);
     printf("%s", contenidoLeido);
-    if (contenidoLeido != NULL) {
-        printf("Contenido leído del archivo:\n%s\n", contenidoLeido);
-        free(contenidoLeido);
-    }
+    free(contenidoLeido);
 
-    finalizarSemaforoBitacora();
+
+    finalizarSemaforoBitacora(sem);
 
     return 0;
 }
