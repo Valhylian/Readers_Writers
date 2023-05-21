@@ -13,6 +13,7 @@ sem_t semaforo;
 int main() {
     finalizarSemaforoBitacora();
     char* contenidoLeido = leerBitacora();
+    printf("%s", contenidoLeido);
     if (contenidoLeido != NULL) {
         printf("Contenido leído del archivo:\n%s\n", contenidoLeido);
         free(contenidoLeido);

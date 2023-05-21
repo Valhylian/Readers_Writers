@@ -23,7 +23,6 @@ const char* obtenerRutaBitacora() {
     strcat(rutaBitacora, nombreArchivoBitacora);
 
     free(rutaDirectorioPadre);
-
     return rutaBitacora;
 }
 
@@ -58,6 +57,7 @@ char* leerBitacora() {
     sem_t* semaforo = obtenerSemaforoBitacora();
     sem_wait(semaforo);
     const char* rutaArchivo = obtenerRutaBitacora();
+
     FILE* archivo = fopen(rutaArchivo, "r");
     if (archivo == NULL) {
         printf("No se pudo abrir el archivo.\n");
