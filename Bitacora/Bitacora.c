@@ -111,9 +111,26 @@ void estadoToString(char * estado ,int i){
             break;
         default:
             strcpy(estado, "estado no definido");
-
     }
 
+}
+void limpiarBitacora(sem_t * semaforo){
+    const char* rutaArchivo = obtenerRutaBitacora();
+    sem_wait(semaforo);
+    FILE* archivo = fopen(rutaArchivo, "w");
+    fputs("",archivo);
+    fclose(archivo);
+    sem_wait(semaforo);
+
+}
+void parsearInfoBitacora(char * buffer, int pId, const char * tipo, char * fechaHora, char * accion){
+    sprintf(buffer, "PID= %d |",pId);
+    strcat(buffer, "Tipo= ");
+    strcat(buffer, tipo );
+    strcat(buffer, " | Fecha y hora= ");
+    strcat(buffer, fechaHora);
+    strcat(buffer, " | Accion= ");
+    strcat(buffer, accion);
 }
 
 

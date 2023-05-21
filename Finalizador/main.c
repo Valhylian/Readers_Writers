@@ -3,7 +3,7 @@
 #include <sys/shm.h>
 #include <semaphore.h>
 #include <stdbool.h>
-
+#include "../Bitacora/Bitacora.h"
 //MEMORIA Y SEMAFOROS A FINALIZAR:
 //1- MEMORIA PRINCIPAL
 //2- SEMAFORO PRINCIPAL (WRITER)
@@ -25,6 +25,9 @@ key_t obtener_key_t(const char* ruta, int id_proyecto) {
 }
 
 int main() {
+    sem_t * semaforoBitacora = obtenerSemaforoBitacora();
+    finalizarSemaforoBitacora(semaforoBitacora);
+    printf("Semáforo de la bitacora liberado\n");
     // Obtener la clave de la memoria compartida----------------------------------
     key_t claveMemoria = obtener_key_t(ruta, id_proyecto);
     if (claveMemoria == -1) {

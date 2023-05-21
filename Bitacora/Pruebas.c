@@ -11,7 +11,6 @@
 
 int main() {
     sem_t * sem = obtenerSemaforoBitacora();
-    escribirBitacora(sem,"Hola hola ya funciona");
     char* contenidoLeido = leerBitacora(sem);
     printf("%s", contenidoLeido);
     free(contenidoLeido);

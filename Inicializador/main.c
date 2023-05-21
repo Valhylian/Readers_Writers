@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <semaphore.h>
 #include <stdbool.h>
-
+#include "../Bitacora/Bitacora.h"
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -26,6 +26,8 @@ key_t obtener_key_t(const char* ruta, int id_proyecto) {
 }
 
 int main() {
+    sem_t * semaforoBitacora = obtenerSemaforoBitacora();
+    escribirBitacora(semaforoBitacora, "--------------------------------------------");
     //CREAR SEMAFORO PRINCIPAL (WRITER)----------------------------------------------------
     sem_t *semaforo;
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
