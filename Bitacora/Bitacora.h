@@ -14,8 +14,9 @@ struct LineaMemoria {
     char horaFecha[50];
     int numLinea;
 };
-sem_t * obtenerSemaforoBitacora();
+
 char * estadoToString(char * estado ,int i);
 void escribirBitacora(char * texto);
 char * leerBitacora();
+void finalizarSemaforoBitacora();
 #endif //READERS_WRITERS_BITACORA_H

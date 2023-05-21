@@ -6,12 +6,29 @@
 //
 
 #include "Bitacora.h"
-const char* nombreArchivo = "bitacora.txt";
+const char* obtenerRutaBitacora() {
+    const char* rutaArchivo = __FILE__;  // Ruta del archivo fuente actual
 
-sem_t * obtenerSemaforoBitacora(){
+    // Obtener la ruta del directorio padre
+    char* rutaDirectorioPadre = strdup(rutaArchivo);
+    char* ultimoSeparador = strrchr(rutaDirectorioPadre, '/');
+    if (ultimoSeparador != NULL) {
+        *(ultimoSeparador + 1) = '\0';  // Agregar el carácter nulo después del último separador
+    }
 
-    //SEMAFORO
-    sem_t *semaforo;
+    // Concatenar el nombre del archivo de bitácora a la ruta del directorio padre
+    const char* nombreArchivoBitacora = "bitacora.txt";
+    char* rutaBitacora = malloc(strlen(rutaDirectorioPadre) + strlen(nombreArchivoBitacora) + 1);
+    strcpy(rutaBitacora, rutaDirectorioPadre);
+    strcat(rutaBitacora, nombreArchivoBitacora);
+
+    free(rutaDirectorioPadre);
+
+    return rutaBitacora;
+}
+
+sem_t* obtenerSemaforoBitacora() {
+    sem_t* semaforo;
     semaforo = sem_open("/semaforo_Bitacora", O_CREAT, 0644, 1);
     if (semaforo == SEM_FAILED) {
         perror("sem_open");
@@ -19,48 +36,29 @@ sem_t * obtenerSemaforoBitacora(){
     }
     return semaforo;
 }
-char * estadoToString(char * buffer ,int i){
-    if (buffer == NULL) {
-        // Manejar error de asignación de memoria
-        return NULL;
-    }
 
-    switch (i) {
-        case 1:
-            strcpy(buffer, "Creacion");
-            break;
-        case 2:
-            strcpy(buffer, "Escribiendo");
-            break;
-        case 3:
-            strcpy(buffer, "Durmiendo");
-            break;
-        case 4:
-            strcpy(buffer, "Leyendo");
-            break;
-        default:
-            strcpy(buffer, "Desconocido");
-    }
-    return buffer;
-}
-void escribirBitacora(char * contenido){
-    sem_t * semaforo = obtenerSemaforoBitacora();
+void escribirBitacora(char* contenido) {
+    sem_t* semaforo = obtenerSemaforoBitacora();
     sem_wait(semaforo);
-    FILE* archivo = fopen(nombreArchivo, "a");
+
+    const char* rutaArchivo = obtenerRutaBitacora();
+    FILE* archivo = fopen(rutaArchivo, "a");
     if (archivo == NULL) {
         printf("No se pudo abrir el archivo.\n");
         sem_post(semaforo);
         return;
     }
+
     fputs(contenido, archivo);
     fclose(archivo);
     sem_post(semaforo);
 }
-char* leerBitacora( ) {
+
+char* leerBitacora() {
     sem_t* semaforo = obtenerSemaforoBitacora();
     sem_wait(semaforo);
-
-    FILE* archivo = fopen(nombreArchivo, "r");
+    const char* rutaArchivo = obtenerRutaBitacora();
+    FILE* archivo = fopen(rutaArchivo, "r");
     if (archivo == NULL) {
         printf("No se pudo abrir el archivo.\n");
         sem_post(semaforo);
@@ -94,3 +92,11 @@ char* leerBitacora( ) {
 
     return contenido;
 }
+
+void finalizarSemaforoBitacora() {
+    sem_t* semaforo = obtenerSemaforoBitacora();
+    if (semaforo != NULL) {
+        sem_destroy(semaforo);
+    }
+}
+
