@@ -144,13 +144,17 @@ void* procesoReader(void* argumento) {
             printf("Linea %d:\n", lineas[lineaLectura].numLinea);
             printf("  PID: %d\n", lineas[lineaLectura].pid);
             printf("  Hora y fecha: %s\n", lineas[lineaLectura].horaFecha);
-            char buffer[1000];
-            char bufferMensaje[100];
-            strcat(bufferMensaje, " -Linea leida: ");
-            sprintf(bufferMensaje,"%d", lineas[lineaLectura].numLinea);
-            strcat(bufferMensaje, " -PID leido: ");
-            sprintf(bufferMensaje, "%d",lineas[lineaLectura].pid );
-            strcat(bufferMensaje, " -Hora y fecha leida: ");
+            char buffer[1000]= "";
+            char bufferMensaje[1000]= "";
+            char convertido[10]= "";
+
+            strcat(bufferMensaje, " -Linea: ");
+            sprintf(convertido,"%d", lineas[lineaLectura].numLinea);
+            strcat(bufferMensaje, convertido);
+            strcat(bufferMensaje, " -PID: ");
+            sprintf(convertido, "%d",lineas[lineaLectura].pid );
+            strcat(bufferMensaje, convertido);
+            strcat(bufferMensaje, " -Hora y fecha: ");
             strcat(bufferMensaje,lineas[lineaLectura].horaFecha);
             char * fechaHora = obtenerFechaHoraActual();
             parsearInfoBitacora(buffer,pid, "Reader",fechaHora,"Leyendo",bufferMensaje);
