@@ -4,6 +4,7 @@
 //OBTENER TAMANO DE LA MEMORIA
 #include "funcionesMenu.h"
 #include "EstadoWriters.h"
+#include "EstadoReaders.h"
 sem_t * semaforoBitacora;
 
 int obtenerCantLineas (int idMemoria){
@@ -121,6 +122,7 @@ int menuPrincipal() {
         case 3:
             printf("Estado de los readers\n");
             // Agrega aquí la lógica para la opción 3
+            imprimirEstadoReaders();
             break;
         case 4:
             printf("Estado de la Readers egoistas\n");
