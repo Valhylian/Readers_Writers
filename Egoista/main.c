@@ -7,7 +7,9 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <time.h>
+
 
 sem_t  * semaforoBitacora;
 sem_t *semaforo;
@@ -15,6 +17,16 @@ sem_t *egoista;
 sem_t *semaforoEstadoEgoista;
 
 int contEgoistaRestriccion = 0;
+
+int generarAleatorio(int min, int max) {
+    // Semilla para la generación de números aleatorios
+    srand(time(NULL));
+
+    // Generar el número aleatorio entre min y max
+    int num = (rand() % (max - min + 1)) + min;
+    return num;
+}
+
 
 //Estructura para pasar paramtros al hilo Writer
 struct ParametrosHilo {
@@ -67,21 +79,39 @@ void* procesoEgoista(void* argumento) {
         /*proceso del egoista*/
         printf("Proceso Egoista: %d PROCESANDO\n", pid);
         sleep(segEscritura);
+
+        int aleatorio = generarAleatorio(0, cantidadLineas-1);
+
+        //BORRAR LINEA
+        // Adjuntar la memoria compartida a nuestro espacio de direcciones
+        void* memoriaCompartida = shmat(idMemoria, NULL, 0);
+        if (memoriaCompartida == (void*)-1) {
+            perror("Error al adjuntar la memoria compartida");
+            break;
+        }
+        // Castear la memoria compartida a un array de struct LineaMemoria
+        struct LineaMemoria* lineas = (struct LineaMemoria*)memoriaCompartida;
+
+        printf("Proceso Egoista: %d intenta borraar la linea: %d\n", pid,aleatorio);
+        if (lineas[aleatorio].pid == 0) {
+            printf("La linea esta vacia\n", pid,aleatorio);
+        }else{
+            lineas[aleatorio].pid = 0;
+            printf("Linea borrada con exito", pid,aleatorio);
+        }
+
         /* fin del proceso egoista*/
 
         if (contEgoistaRestriccion >= 3){
             //reset contador
             sem_wait(semaforoCnt);
-            contEgoistaRestriccion++;
+            contEgoistaRestriccion=0;
             sem_post(semaforoCnt);
             //liberar semaforo principal
             sem_post(semaforo);
         }
         else{
             //reset contador
-            sem_wait(semaforoCnt);
-            contEgoistaRestriccion++;
-            sem_post(semaforoCnt);
             //liberar semaforo principal
             sem_post(semaforo);
             //liberar semaforo egoista

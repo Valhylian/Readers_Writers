@@ -99,6 +99,14 @@ void* procesoWriter(void* argumento) {
 
     while(!*terminar){
 
+        finalizar = *terminar;
+        if (finalizar){
+            sem_post(semaforo); //libera semaforo
+            //liberar semaforo egoista
+            sem_post(egoista);
+            break;
+        }
+
         //ESPERAR SEMAFORO
         printf("Proceso: %d Esperando semaforo\n", pid);
         //actualizar estado
