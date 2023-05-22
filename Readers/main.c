@@ -173,6 +173,7 @@ void* procesoReader(void* argumento) {
         readCnt--;
         if (readCnt == 0){
             sem_post(semaforo);
+
         }
         sem_post(semaforoCnt);
 

@@ -155,6 +155,9 @@ int main() {
     if(sem_unlink("/semaforo_estadoEgoista") == -1){
         perror("Error al cerrar el semaforo_estadoEgoista");
     }
+    if(sem_unlink("/semaforo_egoistaCnt") == -1){
+        perror("Error al cerrar el semaforo_egoistaCnt");
+    }
     printf("Recursos liberados correctamente.\n");
 
     return 0;

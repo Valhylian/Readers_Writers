@@ -14,6 +14,7 @@ sem_t *semaforo;
 sem_t *egoista;
 sem_t *semaforoEstadoEgoista;
 
+int contEgoistaRestriccion = 0;
 
 //Estructura para pasar paramtros al hilo Writer
 struct ParametrosHilo {
@@ -30,8 +31,74 @@ struct ParametrosHilo {
 
 
 void* procesoEgoista(void* argumento) {
-    
+    struct ParametrosHilo* parametros = (struct ParametrosHilo*)argumento;
+    int idMemoria = parametros->idMemoria;
+    int idMemoriaEstadoEgoistas = parametros->idMemoriaEstadoEgoista;
+    int cantidadLineas = parametros->cantidadLineas;
+    int pid = parametros->pid;
+    int segSleep = parametros->segSleep;
+    int segEscritura = parametros->segEscritura;
+    struct Egoista *estadoEgoista = parametros->estadoEgoista;
+    printf("Proceso Egoista: %d\n", pid);
+
+    //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA----------------------------------------------
+    key_t claveFinalizador= obtener_key_t("..//..//finalizadorKey", 123);
+    // Crear la memoria compartida
+    int idFinalizador = shmget(claveFinalizador, sizeof(bool), IPC_CREAT | 0666);
+    // Adjuntar la memoria  a nuestro espacio de direcciones
+    bool* terminar = (bool*)shmat(idFinalizador, NULL, 0);
+
+    //---------------------------
+    //pedir semaforo para contEgoistaRestriccion
+    sem_t *semaforoCnt;
+    semaforoCnt = sem_open("/semaforo_egoistaCnt", O_CREAT, 0644, 1);
+
+    while(!*terminar){
+        //esperar semaforo de restriccion <3
+        sem_wait(egoista);
+        //si pudo entrar entonces no hay restriccion, hace su proceso normal
+        sem_wait(semaforo); //semaforo de la memoria compartida principal
+
+        //actualizar contadores
+        sem_wait(semaforoCnt);
+        contEgoistaRestriccion++;
+        sem_post(semaforoCnt);
+
+        /*proceso del egoista*/
+        printf("Proceso Egoista: %d PROCESANDO\n", pid);
+        sleep(segEscritura);
+        /* fin del proceso egoista*/
+
+        if (contEgoistaRestriccion >= 3){
+            //reset contador
+            sem_wait(semaforoCnt);
+            contEgoistaRestriccion++;
+            sem_post(semaforoCnt);
+            //liberar semaforo principal
+            sem_post(semaforo);
+        }
+        else{
+            //reset contador
+            sem_wait(semaforoCnt);
+            contEgoistaRestriccion++;
+            sem_post(semaforoCnt);
+            //liberar semaforo principal
+            sem_post(semaforo);
+            //liberar semaforo egoista
+            sem_post(egoista);
+        }
+        printf("Proceso Egoista: %d Durmiedno\n", pid);
+        sleep(segSleep);
+    }
+
+
+    printf("Proceso: %d sale\n", pid);
+    // Desvincular la memoria compartida
+    shmdt(terminar);
+    pthread_exit(NULL);
 }
+
+
 //Proceso de ls hilos:
 int main() {
     //SEMAFOROS:
@@ -40,7 +107,7 @@ int main() {
     //2- principal
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
     //3-egoista
-    semaforo = sem_open("/semaforo_egoista", O_CREAT, 0644, 1);
+    egoista = sem_open("/semaforo_egoista", O_CREAT, 0644, 1);
 
 
     //SOLICITAR CANT DE READERS AL USUARIO
