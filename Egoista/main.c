@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include "../Bitacora/Bitacora.h"
 
 sem_t  * semaforoBitacora;
 sem_t *semaforo;
@@ -93,13 +93,28 @@ void* procesoEgoista(void* argumento) {
         struct LineaMemoria* lineas = (struct LineaMemoria*)memoriaCompartida;
 
         printf("Proceso Egoista: %d intenta borraar la linea: %d\n", pid,aleatorio);
+        char buffer[1000]= "";
+        char bufferMensaje[1000]= "";
+        char convertido[10]= "";
+
         if (lineas[aleatorio].pid == 0) {
-            printf("La linea esta vacia\n", pid,aleatorio);
+            strcat(bufferMensaje, "La línea esta vacía");
         }else{
             lineas[aleatorio].pid = 0;
-            printf("Linea borrada con exito", pid,aleatorio);
-        }
+            strcat(bufferMensaje, "La línea borrada es:  ");
+            sprintf(convertido, "%d", pid);
+            strcat(bufferMensaje, " -PID: ");
+            strcat(bufferMensaje, convertido);
 
+            sprintf(convertido, "%d", aleatorio);
+            strcat(bufferMensaje, " -Linea: ");
+            strcat(bufferMensaje, convertido);
+
+            printf("Linea borrada con exito");
+        }
+        char * fechaHora = obtenerFechaHoraActual();
+        parsearInfoBitacora(buffer,pid, "Reader egoísta",fechaHora,"Borrando",bufferMensaje);
+        escribirBitacora(semaforoBitacora, buffer);
         /* fin del proceso egoista*/
 
         if (contEgoistaRestriccion >= 3){
@@ -133,7 +148,7 @@ void* procesoEgoista(void* argumento) {
 int main() {
     //SEMAFOROS:
     //1- bitaciora
-    //semaforoBitacora = obtenerSemaforoBitacora();
+    semaforoBitacora = obtenerSemaforoBitacora();
     //2- principal
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
     //3-egoista

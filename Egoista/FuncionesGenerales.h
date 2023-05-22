@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <sys/shm.h>
 #include <semaphore.h>
+#include <time.h>
 #ifndef EGOISTA_FUNCIONESGENERALES_H
 #define EGOISTA_FUNCIONESGENERALES_H
 
@@ -60,5 +61,19 @@ int solicitarIDMemoriaPrincipal(){
     printf("El id obtenido es %d\n", idMemoria);
 
     return idMemoria;
+}
+char* obtenerFechaHoraActual() {
+    time_t tiempo_actual;
+    struct tm* tiempo_local;
+    static char buffer[80];
+
+    // Obtener el tiempo actual
+    tiempo_actual = time(NULL);
+    // Convertir el tiempo a la hora local
+    tiempo_local = localtime(&tiempo_actual);
+    // Formatear la fecha y la hora en una cadena de caracteres
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", tiempo_local);
+
+    return buffer;
 }
 #endif //EGOISTA_FUNCIONESGENERALES_H

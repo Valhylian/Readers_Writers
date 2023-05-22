@@ -148,7 +148,7 @@ void* procesoReader(void* argumento) {
             char buffer[1000]= "";
             char bufferMensaje[1000]= "";
             char convertido[10]= "";
- 
+
             strcat(bufferMensaje, " -Linea: ");
             sprintf(convertido,"%d", lineas[lineaLectura].numLinea);
             strcat(bufferMensaje, convertido);
