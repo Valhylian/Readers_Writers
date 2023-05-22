@@ -153,7 +153,7 @@ void* procesoWriter(void* argumento) {
             lineas[lineaVacia].pid = pid;
             char* fecha_hora_actual = obtenerFechaHoraActual();
             strcpy(lineas[lineaVacia].horaFecha, fecha_hora_actual);
-            lineas[lineaVacia].numLinea = lineaVacia;
+            //lineas[lineaVacia].numLinea = lineaVacia;
 
             strcpy(mensajeAccion, "Escribiendo");
             strcat(bufferMensaje, " | Linea: ");

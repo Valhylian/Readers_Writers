@@ -118,6 +118,7 @@ void* procesoEgoista(void* argumento) {
         /* fin del proceso egoista*/
 
         if (contEgoistaRestriccion >= 3){
+            printf("entra a la restriccion\n");
             //reset contador
             sem_wait(semaforoCnt);
             contEgoistaRestriccion=0;

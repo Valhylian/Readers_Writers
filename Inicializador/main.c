@@ -83,7 +83,7 @@ int main() {
     struct LineaMemoria* lineas = (struct LineaMemoria*)memoriaCompartida;
     for (int i = 0; i < cantidadLineas; i++) {
         lineas[i].pid = 0;
-        lineas[i].numLinea = i + 1;
+        lineas[i].numLinea = i;
     }
 
     // Desvincular la memoria compartida
