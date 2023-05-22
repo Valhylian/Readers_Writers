@@ -19,4 +19,6 @@ key_t obtener_key_t(const char* ruta, int id_proyecto) {
     return clave;
 }
 
+
+
 #endif //READERS_FUNCIONESGENERALES_H

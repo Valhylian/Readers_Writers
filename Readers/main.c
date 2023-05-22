@@ -9,17 +9,30 @@
 #include <stdbool.h>
 #include <time.h>
 #include "EstadoReaders.h"
-
+#include "../Bitacora/Bitacora.h"
 //VARIABLE GLOABL PARA CONTROLAR LA CANTIDAD O COLA DE LECTORES
 int readCnt = 0;
-
+sem_t  * semaforoBitacora;
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
     char horaFecha[50];
     int numLinea;
 };
+char* obtenerFechaHoraActual() {
+    time_t tiempo_actual;
+    struct tm* tiempo_local;
+    static char buffer[80];
 
+    // Obtener el tiempo actual
+    tiempo_actual = time(NULL);
+    // Convertir el tiempo a la hora local
+    tiempo_local = localtime(&tiempo_actual);
+    // Formatear la fecha y la hora en una cadena de caracteres
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", tiempo_local);
+
+    return buffer;
+}
 //Estructura para pasar paramtros al hilo Writer
 struct ParametrosHilo {
     int idMemoria;
@@ -99,24 +112,28 @@ void* procesoReader(void* argumento) {
     // Adjuntar la memoria  a nuestro espacio de direcciones
     bool* terminar = (bool*)shmat(idFinalizador, NULL, 0);
 
-    while(!*terminar){
-        actulizarEstadoReader(1, semaforoEstadoReaders, estadoReader,  idMemoriaEstadoReaders);
+    while(!*terminar) {
+        actulizarEstadoReader(1, semaforoEstadoReaders, estadoReader, idMemoriaEstadoReaders);
         sem_wait(semaforoCnt);
         readCnt++;
 
-        if(readCnt==1){
+        if (readCnt == 1) {
             sem_wait(semaforo);
         }
         sem_post(semaforoCnt);
 
         /* leer */
         // Adjuntar la memoria compartida a nuestro espacio de direcciones
-        void* memoriaCompartida = shmat(idMemoria, NULL, 0);
+        void *memoriaCompartida = shmat(idMemoria, NULL, 0);
 
         // Castear la memoria compartida a un array de struct LineaMemoria
-        struct LineaMemoria* lineas = (struct LineaMemoria*)memoriaCompartida;
+        struct LineaMemoria *lineas = (struct LineaMemoria *) memoriaCompartida;
 
-        actulizarEstadoReader(2, semaforoEstadoReaders, estadoReader,  idMemoriaEstadoReaders);
+        actulizarEstadoReader(2, semaforoEstadoReaders, estadoReader, idMemoriaEstadoReaders);
+        char buffer[1000];
+        char * fechaHora = obtenerFechaHoraActual();
+        parsearInfoBitacora(buffer,pid, "Reader",fechaHora,"Escribiendo");
+        escribirBitacora(semaforoBitacora, buffer);
         if (lineas[lineaLectura].pid == 0){
             printf("Reader: %dlinea: %d Vacia\n ", pid,lineaLectura);
         }
@@ -157,6 +174,7 @@ void* procesoReader(void* argumento) {
 
 int main() {
     sem_t *semaforo;
+    semaforoBitacora = obtenerSemaforoBitacora();
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
     if (semaforo == SEM_FAILED) {
         perror("sem_open");
