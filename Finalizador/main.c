@@ -65,6 +65,26 @@ int main() {
     if (shmctl(idMemoriaWriters, IPC_RMID, NULL) == -1) {
         perror("Error al eliminar la memoria compartida writera");
     }
+
+    //CERRAR MEMORIA COMPARTIDA DEL ESTADO DE LOS READERS
+    //--------------------------------------------------------------------------
+    // Obtener la clave de la memoria compartida----------------------------------
+    key_t claveReaders = obtener_key_t("..//..//generadorReaders1", 123);
+    if (claveReaders == -1) {
+        perror("Error al obtener la clave de la memoria writers");
+    }
+    printf("La clave readers obtenida es %d\n", claveMemoria);
+
+    // Obtener el ID de la memoria compartida
+    int idMemoriaReaders= shmget(claveReaders, 0, 0);
+    if (idMemoriaReaders == -1) {
+        perror("Error al obtener el ID de la memoria readers");
+    }
+
+    // Desvincular la memoria compartida
+    if (shmctl(idMemoriaReaders, IPC_RMID, NULL) == -1) {
+        perror("Error al eliminar la memoria compartida readers");
+    }
     //--------------------------------------------------------------------------
     //CERRAR MEMORIA DE FINALIZACION
     //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA

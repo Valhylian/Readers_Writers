@@ -61,3 +61,5 @@ dkms.conf
 /espia/.idea
 /Readers/cmake-build-debug
 /Readers/.idea
+/Egoista/cmake-build-debug
+/Egoista/.idea
