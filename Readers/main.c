@@ -13,6 +13,7 @@
 //VARIABLE GLOABL PARA CONTROLAR LA CANTIDAD O COLA DE LECTORES
 int readCnt = 0;
 sem_t  * semaforoBitacora;
+sem_t  * egoista;
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -173,6 +174,8 @@ void* procesoReader(void* argumento) {
         readCnt--;
         if (readCnt == 0){
             sem_post(semaforo);
+            //liberar semaforo egoista
+            sem_post(egoista);
 
         }
         sem_post(semaforoCnt);
@@ -191,6 +194,7 @@ void* procesoReader(void* argumento) {
 }
 
 int main() {
+    egoista = sem_open("/semaforo_egoista", O_CREAT, 0644, 1);
     sem_t *semaforo;
     semaforoBitacora = obtenerSemaforoBitacora();
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);

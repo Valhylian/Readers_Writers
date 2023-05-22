@@ -11,6 +11,7 @@
 #include "EstadoWriters.h"
 #include "../Bitacora/Bitacora.h"
 sem_t * semaforo_bitacora;
+sem_t * egoista;
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -109,6 +110,8 @@ void* procesoWriter(void* argumento) {
         finalizar = *terminar;
         if (finalizar){
             sem_post(semaforo); //libera semaforo
+            //liberar semaforo egoista
+            sem_post(egoista);
             break;
         }
 
@@ -165,6 +168,8 @@ void* procesoWriter(void* argumento) {
         //LIBERAR SEMAFORO
         printf("Proceso: %d Libera el semaforo\n", pid);
         sem_post(semaforo);
+        //liberar semaforo egoista
+        sem_post(egoista);
 
         //TIEMPO DORMIDO
         printf("Proceso: %d durmiendo\n", pid);
@@ -179,6 +184,7 @@ void* procesoWriter(void* argumento) {
 
 
 int main() {
+    egoista = sem_open("/semaforo_egoista", O_CREAT, 0644, 1);
     semaforo_bitacora=obtenerSemaforoBitacora();
     //SEMAFORO
     sem_t *semaforo;
