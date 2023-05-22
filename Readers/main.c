@@ -87,7 +87,7 @@ void* procesoReader(void* argumento) {
     sem_t *semaforoEstadoReaders = parametros->semaforoEstadoReaders;
     int segSleep = parametros->segSleep;
     int segEscritura = parametros->segEscritura;
-    struct Reader *estadoWriter = parametros->estadoReader;
+    struct Reader *estadoReader = parametros->estadoReader;
     printf("Reader: %d\n", pid);
 
     //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA----------------------------------------------
@@ -100,6 +100,7 @@ void* procesoReader(void* argumento) {
     bool* terminar = (bool*)shmat(idFinalizador, NULL, 0);
 
     while(!*terminar){
+        actulizarEstadoReader(1, semaforoEstadoReaders, estadoReader,  idMemoriaEstadoReaders);
         sem_wait(semaforoCnt);
         readCnt++;
 
@@ -115,6 +116,7 @@ void* procesoReader(void* argumento) {
         // Castear la memoria compartida a un array de struct LineaMemoria
         struct LineaMemoria* lineas = (struct LineaMemoria*)memoriaCompartida;
 
+        actulizarEstadoReader(2, semaforoEstadoReaders, estadoReader,  idMemoriaEstadoReaders);
         if (lineas[lineaLectura].pid == 0){
             printf("Reader: %dlinea: %d Vacia\n ", pid,lineaLectura);
         }
@@ -143,6 +145,7 @@ void* procesoReader(void* argumento) {
         }
         sem_post(semaforoCnt);
 
+        actulizarEstadoReader(3, semaforoEstadoReaders, estadoReader,  idMemoriaEstadoReaders);
         printf("Reader: %d Durmiendo...\n", pid);
         sleep(segSleep);
     }
