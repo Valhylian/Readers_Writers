@@ -85,6 +85,26 @@ int main() {
     if (shmctl(idMemoriaReaders, IPC_RMID, NULL) == -1) {
         perror("Error al eliminar la memoria compartida readers");
     }
+
+    //CERRAR MEMORIA COMPARTIDA DEL ESTADO DE LOS EGOISTAS
+    //--------------------------------------------------------------------------
+    // Obtener la clave de la memoria compartida----------------------------------
+    key_t claveEgoistas = obtener_key_t("..//..//generadorEgoista", 123);
+    if (claveEgoistas == -1) {
+        perror("Error al obtener la clave de la memoria egoistas");
+    }
+    printf("La clave egoistas obtenida es %d\n", claveMemoria);
+
+    // Obtener el ID de la memoria compartida
+    int idMemoriaEgoistas= shmget(claveEgoistas, 0, 0);
+    if (idMemoriaEgoistas == -1) {
+        perror("Error al obtener el ID de la memoria egoistas");
+    }
+
+    // Desvincular la memoria compartida
+    if (shmctl(idMemoriaEgoistas, IPC_RMID, NULL) == -1) {
+        perror("Error al eliminar la memoria compartida egoistass");
+    }
     //--------------------------------------------------------------------------
     //CERRAR MEMORIA DE FINALIZACION
     //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA
@@ -128,6 +148,12 @@ int main() {
     }
     if(sem_unlink("/semaforo_estadoReader") == -1){
         perror("Error al cerrar el semaforo_estadoReader");
+    }
+    if(sem_unlink("/semaforo_egoista") == -1){
+        perror("Error al cerrar el semaforo_egoista");
+    }
+    if(sem_unlink("/semaforo_estadoEgoista") == -1){
+        perror("Error al cerrar el semaforo_estadoEgoista");
     }
     printf("Recursos liberados correctamente.\n");
 

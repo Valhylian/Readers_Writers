@@ -36,6 +36,15 @@ int main() {
         return 1;
     }
 
+    //SEMAFORO PARA LOS EGOISTAS
+    sem_t *semaforoEgoista;
+    semaforoEgoista = sem_open("/semaforo_egoista", O_CREAT, 0644, 1);
+    if (semaforoEgoista == SEM_FAILED) {
+        perror("sem_open");
+        return 1;
+    }
+    sem_init(semaforoEgoista, 1, 0); //inicia bloqueado
+
     //PEDIR ESPACIO DE MEMORIA COMPARTIDA PRINCIPAL--------------------------------------------
     const char* ruta = "..//..//generadorKey";
     int id_proyecto = 123; // Identificador de proyecto arbitrario
