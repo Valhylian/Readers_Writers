@@ -73,7 +73,7 @@ int main() {
     printf("La clave readers obtenida es %d\n", claveMemoria);
 
     // Obtener el ID de la memoria compartida
-    int idMemoriaReaders= shmget(claveWriters, 0, 0);
+    int idMemoriaReaders= shmget(claveReaders, 0, 0);
     if (idMemoriaReaders == -1) {
         perror("Error al obtener el ID de la memoria readers");
     }
