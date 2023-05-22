@@ -129,6 +129,9 @@ void* procesoWriter(void* argumento) {
                 break;
             }
         }
+        char mensajeAccion[50];
+        char buffer[100];
+        char bufferMensaje[100]= " ";
         if (lineaVacia != -1) {
             //TIEMPO DE ESCRITURA
             printf("Proceso: %d Escribiendo\n", pid);
@@ -140,17 +143,20 @@ void* procesoWriter(void* argumento) {
             char* fecha_hora_actual = obtenerFechaHoraActual();
             strcpy(lineas[lineaVacia].horaFecha, fecha_hora_actual);
             lineas[lineaVacia].numLinea = lineaVacia;
-            //SUBIR DATOS A LA BITACORA
-            char buffer[100];
-            parsearInfoBitacora(buffer, pid, "Writer", fecha_hora_actual, "Escribiendo");
-            escribirBitacora(semaforo_bitacora, buffer);
-            //SUBIR DATOS A LA BITACORA
 
+            strcpy(mensajeAccion, "Escribiendo");
+            strcat(bufferMensaje, " | Linea: ");
+            sprintf(bufferMensaje, "%d", lineas[lineaVacia].numLinea );
             printf("Escritura exitosa en la línea %d\n", lineaVacia);
         } else {
+            strcpy(mensajeAccion, "Error al escribir (Lineas llenas)");
+            strcpy(bufferMensaje, "n/d");
             printf("No hay líneas vacías disponibles\n");
         }
-
+        //SUBIR DATOS A LA BITACORA
+        parsearInfoBitacora(buffer, pid, "Writer", obtenerFechaHoraActual(), mensajeAccion,bufferMensaje );
+        escribirBitacora(semaforo_bitacora, buffer);
+        //SUBIR DATOS A LA BITACORA
         // Desvincular la memoria compartida
         if (shmdt(memoriaCompartida) == -1) {
             perror("Error al desvincular la memoria compartida");

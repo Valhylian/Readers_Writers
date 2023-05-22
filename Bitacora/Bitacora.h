@@ -16,6 +16,6 @@ char * leerBitacora(sem_t * semaforo);
 void finalizarSemaforoBitacora(sem_t * semaforo);
 sem_t* obtenerSemaforoBitacora();
 void limpiarBitacora(sem_t * semaforo);
-void parsearInfoBitacora(char * buffer, int pId, const char * tipo, char * fechaHora, char * accion);
+void parsearInfoBitacora(char * buffer, int pId, const char * tipo, char * fechaHora, char * accion, char * mensaje);
 
 #endif //READERS_WRITERS_BITACORA_H

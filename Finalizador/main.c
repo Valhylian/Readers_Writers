@@ -123,6 +123,12 @@ int main() {
     if (sem_unlink("/semaforo_estadoWriter") == -1) {
         perror("Error al cerrar el semáforo");
     }
+    if(sem_unlink("/semaforo_readCnt") == -1){
+        perror("Error al cerrar el semáforo readCnt");
+    }
+    if(sem_unlink("/semaforo_estadoReader") == -1){
+        perror("Error al cerrar el semaforo_estadoReader");
+    }
     printf("Recursos liberados correctamente.\n");
 
     return 0;

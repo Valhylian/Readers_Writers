@@ -87,6 +87,7 @@ void* procesoReader(void* argumento) {
     //pedir semaforo para readCnt
     sem_t *semaforoCnt;
     semaforoCnt = sem_open("/semaforo_readCnt", O_CREAT, 0644, 1);
+
     if (semaforoCnt == SEM_FAILED) {
         perror("sem_open");
     }
@@ -114,6 +115,7 @@ void* procesoReader(void* argumento) {
 
     while(!*terminar) {
         actulizarEstadoReader(1, semaforoEstadoReaders, estadoReader, idMemoriaEstadoReaders);
+
         sem_wait(semaforoCnt);
         readCnt++;
 
@@ -122,7 +124,7 @@ void* procesoReader(void* argumento) {
         }
         sem_post(semaforoCnt);
 
-        /* leer */
+
         // Adjuntar la memoria compartida a nuestro espacio de direcciones
         void *memoriaCompartida = shmat(idMemoria, NULL, 0);
 
@@ -130,10 +132,7 @@ void* procesoReader(void* argumento) {
         struct LineaMemoria *lineas = (struct LineaMemoria *) memoriaCompartida;
 
         actulizarEstadoReader(2, semaforoEstadoReaders, estadoReader, idMemoriaEstadoReaders);
-        char buffer[1000];
-        char * fechaHora = obtenerFechaHoraActual();
-        parsearInfoBitacora(buffer,pid, "Reader",fechaHora,"Escribiendo");
-        escribirBitacora(semaforoBitacora, buffer);
+
         if (lineas[lineaLectura].pid == 0){
             printf("Reader: %dlinea: %d Vacia\n ", pid,lineaLectura);
         }
@@ -145,6 +144,17 @@ void* procesoReader(void* argumento) {
             printf("Linea %d:\n", lineas[lineaLectura].numLinea);
             printf("  PID: %d\n", lineas[lineaLectura].pid);
             printf("  Hora y fecha: %s\n", lineas[lineaLectura].horaFecha);
+            char buffer[1000];
+            char bufferMensaje[100];
+            strcat(bufferMensaje, " -Linea leida: ");
+            sprintf(bufferMensaje,"%d", lineas[lineaLectura].numLinea);
+            strcat(bufferMensaje, " -PID leido: ");
+            sprintf(bufferMensaje, "%d",lineas[lineaLectura].pid );
+            strcat(bufferMensaje, " -Hora y fecha leida: ");
+            strcat(bufferMensaje,lineas[lineaLectura].horaFecha);
+            char * fechaHora = obtenerFechaHoraActual();
+            parsearInfoBitacora(buffer,pid, "Reader",fechaHora,"Leyendo",bufferMensaje);
+            escribirBitacora(semaforoBitacora, buffer);
             lineaLectura++;
 
             if(lineaLectura>=cantidadLineas){
@@ -153,7 +163,7 @@ void* procesoReader(void* argumento) {
 
         }
 
-        /*termina proceso de lectura*/
+
 
         sem_wait(semaforoCnt);
         readCnt--;
@@ -165,10 +175,13 @@ void* procesoReader(void* argumento) {
         actulizarEstadoReader(3, semaforoEstadoReaders, estadoReader,  idMemoriaEstadoReaders);
         printf("Reader: %d Durmiendo...\n", pid);
         sleep(segSleep);
+
     }
+
     printf("Proceso: %d sale\n", pid);
     // Desvincular la memoria compartida
     shmdt(terminar);
+
     pthread_exit(NULL);
 }
 
@@ -187,7 +200,7 @@ int main() {
     int segSleep;
 
     //Solicitar al usuario la informacion necesaria
-    printf("Ingrese la cantidad de procesos Writers: ");
+    printf("Ingrese la cantidad de procesos readers: ");
     scanf("%d", &cantidadReaders);
 
     printf("Ingrese los segundos de escritura: ");
@@ -216,7 +229,7 @@ int main() {
     sem_t *semaforoEstadoReader;
     semaforoEstadoReader = sem_open("/semaforo_estadoReader", O_CREAT, 0644, 1);
     if (semaforoEstadoReader == SEM_FAILED) {
-        printf("Error al pedir el semaforo de estado de Writers");
+        printf("Error al pedir el semaforo de estado de readers");
     }
 
     for (int i=0; i<cantidadReaders; i++){

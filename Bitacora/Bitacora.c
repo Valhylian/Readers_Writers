@@ -123,7 +123,7 @@ void limpiarBitacora(sem_t * semaforo){
     sem_post(semaforo);
 
 }
-void parsearInfoBitacora(char * buffer, int pId, const char * tipo, char * fechaHora, char * accion){
+void parsearInfoBitacora(char * buffer, int pId, const char * tipo, char * fechaHora, char * accion, char * mensaje){
     sprintf(buffer, "PID= %d |",pId);
     strcat(buffer, "Tipo= ");
     strcat(buffer, tipo );
@@ -131,6 +131,8 @@ void parsearInfoBitacora(char * buffer, int pId, const char * tipo, char * fecha
     strcat(buffer, fechaHora);
     strcat(buffer, " | Accion= ");
     strcat(buffer, accion);
+    strcat(buffer, " | Mensaje= ");
+    strcat(buffer, mensaje);
 }
 
 
