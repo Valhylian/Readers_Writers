@@ -5,6 +5,7 @@
 #include "funcionesMenu.h"
 #include "EstadoWriters.h"
 #include "EstadoReaders.h"
+#include "EstadoEgoistas.h"
 sem_t * semaforoBitacora;
 
 int obtenerCantLineas (int idMemoria){
@@ -127,6 +128,7 @@ int menuPrincipal() {
         case 4:
             printf("Estado de la Readers egoistas\n");
             // Agrega aquí la lógica para la opción 4
+            imprimirEstadoEgoistas();
             break;
         case 5:
             printf("Mostrar bitacora\n");

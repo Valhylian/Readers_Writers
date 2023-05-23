@@ -28,7 +28,7 @@ int agregarEgoistaEnPosicion(int posicion, struct Egoista* egoista, int idMemori
     struct Egoista* egoistas = (struct Egoista*)memoriaCompartida;
 
     // Copiar el writer en la posición especificada
-    egoista[posicion] = *egoista;
+    egoistas[posicion] = *egoista;
 
     // Desvincular la memoria compartida
     if (shmdt(memoriaCompartida) == -1) {
@@ -39,10 +39,10 @@ int agregarEgoistaEnPosicion(int posicion, struct Egoista* egoista, int idMemori
 }
 
 //ACTUALIZAR ESTADO DEL READER
-int actulizarEstadoReader(int estado, sem_t *semaforoEstadoReaders, struct Egoista* estadoEgoista, int idMemoriaEstadoReaders){
+int actulizarEstadoEgoista(int estado, sem_t *semaforoEstadoReaders, struct Egoista* estadoEgoista, int idMemoriaEstadoEgoista){
     sem_wait(semaforoEstadoReaders);
     estadoEgoista->estado = estado;
-    agregarEgoistaEnPosicion(estadoEgoista->pid-1, estadoEgoista, idMemoriaEstadoReaders);
+    agregarEgoistaEnPosicion(estadoEgoista->pid-1, estadoEgoista, idMemoriaEstadoEgoista);
     sem_post(semaforoEstadoReaders);
 }
 

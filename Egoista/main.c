@@ -66,6 +66,10 @@ void* procesoEgoista(void* argumento) {
     semaforoCnt = sem_open("/semaforo_egoistaCnt", O_CREAT, 0644, 1);
 
     while(!*terminar){
+
+        //Estado = 1 BLOQUEADO
+        actulizarEstadoEgoista(1, semaforoEstadoEgoista, estadoEgoista, idMemoriaEstadoEgoistas);
+
         //esperar semaforo de restriccion <3
         sem_wait(egoista);
         //si pudo entrar entonces no hay restriccion, hace su proceso normal
@@ -78,6 +82,7 @@ void* procesoEgoista(void* argumento) {
 
         /*proceso del egoista*/
         printf("Proceso Egoista: %d PROCESANDO\n", pid);
+        actulizarEstadoEgoista(2, semaforoEstadoEgoista, estadoEgoista, idMemoriaEstadoEgoistas);
         sleep(segEscritura);
 
         int aleatorio = generarAleatorio(0, cantidadLineas-1);
@@ -134,6 +139,7 @@ void* procesoEgoista(void* argumento) {
             sem_post(egoista);
         }
         printf("Proceso Egoista: %d Durmiedno\n", pid);
+        actulizarEstadoEgoista(3, semaforoEstadoEgoista, estadoEgoista, idMemoriaEstadoEgoistas);
         sleep(segSleep);
     }
 

@@ -1,36 +1,341 @@
-PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:10:36 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 0
-PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:10:43 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 5
-PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:10:45 | Accion= Escribiendo | Mensaje= 1
-PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:10:47 | Accion= Escribiendo | Mensaje= 6
-PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:10:49 | Accion= Escribiendo | Mensaje= 10
-PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:10:51 | Accion= Escribiendo | Mensaje= 11
-PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:10:53 | Accion= Escribiendo | Mensaje= 14
-PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:10:59 | Accion= Leyendo | Mensaje=  -Linea: 1 -PID: 3 -Hora y fecha: 2023-05-22 16:10:45
-PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:11:06 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 0
-PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:11:13 | Accion= Borrando | Mensaje= La línea esta vacía
-PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:11:20 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 7
-PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:11:22 | Accion= Escribiendo | Mensaje= 1
-PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:11:24 | Accion= Escribiendo | Mensaje= 8
-PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:11:31 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 6
-PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:11:33 | Accion= Escribiendo | Mensaje= 7
-PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:11:35 | Accion= Escribiendo | Mensaje= 15
-PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:11:37 | Accion= Escribiendo | Mensaje= 16
-PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:11:43 | Accion= Leyendo | Mensaje=  -Linea: 2 -PID: 2 -Hora y fecha: 2023-05-22 16:09:53
-PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:11:50 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 1
-PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:11:57 | Accion= Borrando | Mensaje= La línea esta vacía
-PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:11:59 | Accion= Escribiendo | Mensaje= 2
-PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:12:01 | Accion= Escribiendo | Mensaje= 17
-PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:12:08 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 7
-PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:12:10 | Accion= Escribiendo | Mensaje= 8
-PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:12:12 | Accion= Escribiendo | Mensaje= 18
-PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:12:19 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 1
-PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:12:25 | Accion= Leyendo | Mensaje=  -Linea: 3 -PID: 4 -Hora y fecha: 2023-05-22 16:09:55
-PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:12:32 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 10
-PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:12:39 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 7
 --------------------------------------------
-PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:13:21 | Accion= Escribiendo | Mensaje= 0
-PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:13:24 | Accion= Escribiendo | Mensaje= 1
-PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:13:27 | Accion= Escribiendo | Mensaje= 2
-PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:13:30 | Accion= Escribiendo | Mensaje= 3
-PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:13:33 | Accion= Escribiendo | Mensaje= 4
-PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:13:36 | Accion= Escribiendo | Mensaje= 5
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:24:33 | Accion= Escribiendo | Mensaje= 0
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:24:38 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:24:43 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:24:46 | Accion= Escribiendo | Mensaje= 1
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:24:49 | Accion= Escribiendo | Mensaje= 2
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:24:52 | Accion= Escribiendo | Mensaje= 3
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:24:55 | Accion= Escribiendo | Mensaje= 4
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:24:58 | Accion= Escribiendo | Mensaje= 5
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:03 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:25:06 | Accion= Escribiendo | Mensaje= 6
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:11 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:16 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:21 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:25:24 | Accion= Escribiendo | Mensaje= 7
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:25:29 | Accion= Leyendo | Mensaje=  -Linea: 0 -PID: 1 -Hora y fecha: 2023-05-22 16:24:33
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:25:29 | Accion= Leyendo | Mensaje=  -Linea: 0 -PID: 1 -Hora y fecha: 2023-05-22 16:24:33
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:34 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:39 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:44 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 2
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:25:47 | Accion= Escribiendo | Mensaje= 2
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:52 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 4
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:25:57 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:26:02 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:05 | Accion= Escribiendo | Mensaje= 4
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:08 | Accion= Escribiendo | Mensaje= 8
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:26:13 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 7
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:16 | Accion= Escribiendo | Mensaje= 7
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:19 | Accion= Escribiendo | Mensaje= 9
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:22 | Accion= Escribiendo | Mensaje= 10
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:25 | Accion= Escribiendo | Mensaje= 11
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:28 | Accion= Escribiendo | Mensaje= 12
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:26:33 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:36 | Accion= Escribiendo | Mensaje= 13
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:26:41 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 2
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:26:44 | Accion= Escribiendo | Mensaje= 2
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:26:49 | Accion= Leyendo | Mensaje=  -Linea: 1 -PID: 7 -Hora y fecha: 2023-05-22 16:24:46
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:26:49 | Accion= Leyendo | Mensaje=  -Linea: 1 -PID: 7 -Hora y fecha: 2023-05-22 16:24:46
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:26:54 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 11
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:26:59 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:02 | Accion= Escribiendo | Mensaje= 11
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:05 | Accion= Escribiendo | Mensaje= 14
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:27:10 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:27:15 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:18 | Accion= Escribiendo | Mensaje= 15
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:21 | Accion= Escribiendo | Mensaje= 16
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:27:26 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 3
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:29 | Accion= Escribiendo | Mensaje= 3
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:27:34 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 5
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:37 | Accion= Escribiendo | Mensaje= 5
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:27:42 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 7
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:45 | Accion= Escribiendo | Mensaje= 7
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:48 | Accion= Escribiendo | Mensaje= 17
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:51 | Accion= Escribiendo | Mensaje= 18
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:27:54 | Accion= Escribiendo | Mensaje= 19
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:27:59 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 2
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:28:04 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:28:07 | Accion= Escribiendo | Mensaje= 2
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:28:12 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 5
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:28:17 | Accion= Leyendo | Mensaje=  -Linea: 2 -PID: 4 -Hora y fecha: 2023-05-22 16:28:07
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:28:17 | Accion= Leyendo | Mensaje=  -Linea: 2 -PID: 4 -Hora y fecha: 2023-05-22 16:28:07
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:28:22 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 0
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:28:25 | Accion= Escribiendo | Mensaje= 0
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:28:30 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 15
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:28:33 | Accion= Escribiendo | Mensaje= 5
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:28:38 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 6
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:28:41 | Accion= Escribiendo | Mensaje= 6
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:28:46 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 11
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:28:49 | Accion= Escribiendo | Mensaje= 11
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:28:52 | Accion= Escribiendo | Mensaje= 15
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:28:57 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 8
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:00 | Accion= Escribiendo | Mensaje= 8
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:29:05 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 8
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:08 | Accion= Escribiendo | Mensaje= 8
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:29:13 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 1
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:16 | Accion= Escribiendo | Mensaje= 1
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:16 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:16 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:29:21 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 15
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:24 | Accion= Escribiendo | Mensaje= 15
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:29:29 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 16
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:29:34 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 17
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:29:39 | Accion= Leyendo | Mensaje=  -Linea: 3 -PID: 9 -Hora y fecha: 2023-05-22 16:27:29
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:29:39 | Accion= Leyendo | Mensaje=  -Linea: 3 -PID: 9 -Hora y fecha: 2023-05-22 16:27:29
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:42 | Accion= Escribiendo | Mensaje= 16
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:29:47 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 10
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:50 | Accion= Escribiendo | Mensaje= 10
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:29:55 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 5
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:29:58 | Accion= Escribiendo | Mensaje= 5
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:30:03 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 19
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:06 | Accion= Escribiendo | Mensaje= 17
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:30:11 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 5
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:14 | Accion= Escribiendo | Mensaje= 5
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:17 | Accion= Escribiendo | Mensaje= 19
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:30:22 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 18
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:25 | Accion= Escribiendo | Mensaje= 18
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:30:30 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 5
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:33 | Accion= Escribiendo | Mensaje= 5
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:33 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:33 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:30:38 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 6
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:41 | Accion= Escribiendo | Mensaje= 6
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:30:46 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 9
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:30:51 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 13
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:30:56 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:30:59 | Accion= Escribiendo | Mensaje= 9
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:31:04 | Accion= Leyendo | Mensaje=  -Linea: 4 -PID: 5 -Hora y fecha: 2023-05-22 16:26:05
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:31:04 | Accion= Leyendo | Mensaje=  -Linea: 4 -PID: 5 -Hora y fecha: 2023-05-22 16:26:05
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:07 | Accion= Escribiendo | Mensaje= 13
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:31:12 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 5
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:15 | Accion= Escribiendo | Mensaje= 5
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:31:20 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 4
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:23 | Accion= Escribiendo | Mensaje= 4
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:31:28 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 6
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:31 | Accion= Escribiendo | Mensaje= 6
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:31:36 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 4
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:39 | Accion= Escribiendo | Mensaje= 4
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:39 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:31:44 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 2
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:47 | Accion= Escribiendo | Mensaje= 2
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:47 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:47 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:31:52 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 6
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:31:55 | Accion= Escribiendo | Mensaje= 6
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:32:00 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 2
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:32:05 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 1
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:32:10 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 12
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:13 | Accion= Escribiendo | Mensaje= 1
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:32:18 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 5
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:21 | Accion= Escribiendo | Mensaje= 2
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:24 | Accion= Escribiendo | Mensaje= 5
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:32:29 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 10
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:32 | Accion= Escribiendo | Mensaje= 10
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:32:37 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 18
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:40 | Accion= Escribiendo | Mensaje= 12
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:32:45 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 14
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:48 | Accion= Escribiendo | Mensaje= 14
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:51 | Accion= Escribiendo | Mensaje= 18
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:32:56 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 18
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:59 | Accion= Escribiendo | Mensaje= 18
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:59 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:32:59 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:33:04 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 9
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:33:07 | Accion= Escribiendo | Mensaje= 9
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:33:12 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 15
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:33:17 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 5
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:33:22 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 18
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:33:25 | Accion= Escribiendo | Mensaje= 5
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:33:30 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 13
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:33:33 | Accion= Escribiendo | Mensaje= 13
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:33:38 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 11
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:33:41 | Accion= Escribiendo | Mensaje= 11
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:33:46 | Accion= Leyendo | Mensaje=  -Linea: 5 -PID: 7 -Hora y fecha: 2023-05-22 16:33:25
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:33:46 | Accion= Leyendo | Mensaje=  -Linea: 5 -PID: 7 -Hora y fecha: 2023-05-22 16:33:25
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:33:49 | Accion= Escribiendo | Mensaje= 15
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:33:54 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 17
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:33:57 | Accion= Escribiendo | Mensaje= 17
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:34:02 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 17
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:05 | Accion= Escribiendo | Mensaje= 17
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:34:10 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 16
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:13 | Accion= Escribiendo | Mensaje= 16
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:16 | Accion= Escribiendo | Mensaje= 18
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:16 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:16 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:34:21 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 18
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:24 | Accion= Escribiendo | Mensaje= 18
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:34:29 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 15
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:34:34 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 13
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:34:39 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 18
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:42 | Accion= Escribiendo | Mensaje= 13
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:34:47 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 16
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:50 | Accion= Escribiendo | Mensaje= 15
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:34:55 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 11
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:34:58 | Accion= Escribiendo | Mensaje= 11
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:35:03 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 17
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:06 | Accion= Escribiendo | Mensaje= 16
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:35:11 | Accion= Leyendo | Mensaje=  -Linea: 6 -PID: 4 -Hora y fecha: 2023-05-22 16:31:55
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:35:11 | Accion= Leyendo | Mensaje=  -Linea: 6 -PID: 4 -Hora y fecha: 2023-05-22 16:31:55
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:14 | Accion= Escribiendo | Mensaje= 17
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:35:19 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 12
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:22 | Accion= Escribiendo | Mensaje= 12
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:35:27 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 15
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:30 | Accion= Escribiendo | Mensaje= 15
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:35:35 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 13
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:38 | Accion= Escribiendo | Mensaje= 13
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:41 | Accion= Escribiendo | Mensaje= 18
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:41 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:41 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:35:46 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 6
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:35:51 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 8
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:35:56 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 18
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:35:59 | Accion= Escribiendo | Mensaje= 6
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:36:04 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 19
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:36:07 | Accion= Escribiendo | Mensaje= 8
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:36:12 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 5
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:36:15 | Accion= Escribiendo | Mensaje= 5
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:36:20 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 9
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:36:23 | Accion= Escribiendo | Mensaje= 9
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:36:28 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 9
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:36:31 | Accion= Escribiendo | Mensaje= 9
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:36:36 | Accion= Leyendo | Mensaje=  -Linea: 7 -PID: 8 -Hora y fecha: 2023-05-22 16:27:45
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:36:36 | Accion= Leyendo | Mensaje=  -Linea: 7 -PID: 8 -Hora y fecha: 2023-05-22 16:27:45
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:36:39 | Accion= Escribiendo | Mensaje= 18
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:36:44 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 6
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:36:47 | Accion= Escribiendo | Mensaje= 6
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:36:52 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 8
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:36:55 | Accion= Escribiendo | Mensaje= 8
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:37:00 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 1
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:03 | Accion= Escribiendo | Mensaje= 1
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:06 | Accion= Escribiendo | Mensaje= 19
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:06 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:37:11 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 11
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:37:16 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 13
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:19 | Accion= Escribiendo | Mensaje= 11
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:37:24 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:27 | Accion= Escribiendo | Mensaje= 13
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:37:32 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 17
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:35 | Accion= Escribiendo | Mensaje= 17
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:37:40 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 6
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:43 | Accion= Escribiendo | Mensaje= 6
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:37:48 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 8
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:51 | Accion= Escribiendo | Mensaje= 8
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:37:56 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 5
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:37:59 | Accion= Escribiendo | Mensaje= 5
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:38:04 | Accion= Leyendo | Mensaje=  -Linea: 8 -PID: 6 -Hora y fecha: 2023-05-22 16:37:51
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:38:04 | Accion= Leyendo | Mensaje=  -Linea: 8 -PID: 6 -Hora y fecha: 2023-05-22 16:37:51
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:38:04 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:38:09 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 4
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:38:12 | Accion= Escribiendo | Mensaje= 4
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:38:17 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 3
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:38:20 | Accion= Escribiendo | Mensaje= 3
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:38:25 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 9
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:38:28 | Accion= Escribiendo | Mensaje= 9
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:38:28 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:38:33 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 7
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:38:36 | Accion= Escribiendo | Mensaje= 7
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:38:41 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 0
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:38:44 | Accion= Escribiendo | Mensaje= 0
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:38:49 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 15
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:38:52 | Accion= Escribiendo | Mensaje= 15
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:38:57 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 16
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:00 | Accion= Escribiendo | Mensaje= 16
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:39:05 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 19
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:08 | Accion= Escribiendo | Mensaje= 19
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:39:13 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 16
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:16 | Accion= Escribiendo | Mensaje= 16
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:39:21 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 18
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:24 | Accion= Escribiendo | Mensaje= 18
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:39:29 | Accion= Leyendo | Mensaje=  -Linea: 9 -PID: 4 -Hora y fecha: 2023-05-22 16:38:28
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:39:29 | Accion= Leyendo | Mensaje=  -Linea: 9 -PID: 4 -Hora y fecha: 2023-05-22 16:38:28
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:29 | Accion= Error al escribir (Lineas llenas) | Mensaje=  
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:39:34 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 5
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:37 | Accion= Escribiendo | Mensaje= 5
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:39:42 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 10
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:45 | Accion= Escribiendo | Mensaje= 10
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:45 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:39:50 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 2
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:39:53 | Accion= Escribiendo | Mensaje= 2
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:39:58 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 9
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:40:01 | Accion= Escribiendo | Mensaje= 9
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:40:06 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 13
+PID= 10 |Tipo= Writer | Fecha y hora= 2023-05-22 16:40:09 | Accion= Escribiendo | Mensaje= 13
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:40:14 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 7
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 16:40:17 | Accion= Escribiendo | Mensaje= 7
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:40:22 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 6
+PID= 6 |Tipo= Writer | Fecha y hora= 2023-05-22 16:40:25 | Accion= Escribiendo | Mensaje= 6
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:40:30 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 9 -Linea: 2
+PID= 9 |Tipo= Writer | Fecha y hora= 2023-05-22 16:40:33 | Accion= Escribiendo | Mensaje= 2
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:40:38 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 3
+PID= 8 |Tipo= Writer | Fecha y hora= 2023-05-22 16:40:41 | Accion= Escribiendo | Mensaje= 3
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:40:46 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 19
+PID= 11 |Tipo= Writer | Fecha y hora= 2023-05-22 16:40:49 | Accion= Escribiendo | Mensaje= 19
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:40:54 | Accion= Leyendo | Mensaje=  -Linea: 10 -PID: 2 -Hora y fecha: 2023-05-22 16:39:45
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:40:54 | Accion= Leyendo | Mensaje=  -Linea: 10 -PID: 2 -Hora y fecha: 2023-05-22 16:39:45
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:40:54 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:40:59 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 8 -Linea: 11
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 16:41:02 | Accion= Escribiendo | Mensaje= 11
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 16:41:02 | Accion= Error al escribir (Lineas llenas) | Mensaje= 
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:07 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 18
+PID= 7 |Tipo= Writer | Fecha y hora= 2023-05-22 16:41:10 | Accion= Escribiendo | Mensaje= 18
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:15 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 13
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 16:41:18 | Accion= Escribiendo | Mensaje= 13
+PID= 10 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:23 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 10 -Linea: 6
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:28 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 6 -Linea: 19
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:33 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 7
+PID= 7 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:38 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 7 -Linea: 8
+PID= 9 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:43 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:48 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 16
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:41:53 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 14
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 16:41:58 | Accion= Leyendo | Mensaje=  -Linea: 11 -PID: 1 -Hora y fecha: 2023-05-22 16:41:02
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 16:41:58 | Accion= Leyendo | Mensaje=  -Linea: 11 -PID: 1 -Hora y fecha: 2023-05-22 16:41:02
+PID= 8 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:42:03 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 16:42:08 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 5 -Linea: 11
+--------------------------------------------
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 17:39:36 | Accion= Escribiendo | Mensaje= 0
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 17:39:42 | Accion= Escribiendo | Mensaje= 1
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 17:39:48 | Accion= Escribiendo | Mensaje= 2
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 17:39:54 | Accion= Escribiendo | Mensaje= 3
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 17:40:00 | Accion= Escribiendo | Mensaje= 4
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 17:40:05 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 17:40:11 | Accion= Escribiendo | Mensaje= 5
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 17:40:16 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 17:40:22 | Accion= Escribiendo | Mensaje= 6
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 17:40:27 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 17:40:32 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 17:40:37 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 17:40:42 | Accion= Borrando | Mensaje= La línea esta vacía
+--------------------------------------------
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 18:05:59 | Accion= Escribiendo | Mensaje= 0
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:04 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:09 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 18:06:12 | Accion= Escribiendo | Mensaje= 1
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 18:06:15 | Accion= Escribiendo | Mensaje= 2
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:20 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 18:06:23 | Accion= Escribiendo | Mensaje= 3
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:28 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:33 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 3 -Linea: 2
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:38 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 1
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:43 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 18:06:46 | Accion= Escribiendo | Mensaje= 1
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 18:06:49 | Accion= Escribiendo | Mensaje= 2
+PID= 3 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:54 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:06:59 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 18:07:02 | Accion= Escribiendo | Mensaje= 4
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 18:07:05 | Accion= Leyendo | Mensaje=  -Linea: 0 -PID: 2 -Hora y fecha: 2023-05-22 18:05:59
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 18:07:05 | Accion= Leyendo | Mensaje=  -Linea: 0 -PID: 2 -Hora y fecha: 2023-05-22 18:05:59
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:07:10 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 2
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:07:15 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 6 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:07:20 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 2 |Tipo= Writer | Fecha y hora= 2023-05-22 18:07:23 | Accion= Escribiendo | Mensaje= 2
+PID= 1 |Tipo= Writer | Fecha y hora= 2023-05-22 18:07:26 | Accion= Escribiendo | Mensaje= 5
+PID= 5 |Tipo= Writer | Fecha y hora= 2023-05-22 18:07:29 | Accion= Escribiendo | Mensaje= 6
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 18:07:32 | Accion= Escribiendo | Mensaje= 7
+PID= 5 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:07:37 | Accion= Borrando | Mensaje= La línea esta vacía
+PID= 4 |Tipo= Writer | Fecha y hora= 2023-05-22 18:07:40 | Accion= Escribiendo | Mensaje= 8
+PID= 3 |Tipo= Writer | Fecha y hora= 2023-05-22 18:07:43 | Accion= Escribiendo | Mensaje= 9
+PID= 2 |Tipo= Reader | Fecha y hora= 2023-05-22 18:07:46 | Accion= Leyendo | Mensaje=  -Linea: 1 -PID: 1 -Hora y fecha: 2023-05-22 18:06:46
+PID= 1 |Tipo= Reader | Fecha y hora= 2023-05-22 18:07:46 | Accion= Leyendo | Mensaje=  -Linea: 1 -PID: 1 -Hora y fecha: 2023-05-22 18:06:46
+PID= 1 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:07:51 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 1 -Linea: 5
+PID= 4 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:07:56 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 4 -Linea: 2
+PID= 2 |Tipo= Reader egoísta | Fecha y hora= 2023-05-22 18:08:01 | Accion= Borrando | Mensaje= La línea borrada es:   -PID: 2 -Linea: 9
