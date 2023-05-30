@@ -16,7 +16,6 @@ sem_t *semaforo;
 sem_t *egoista;
 sem_t *semaforoEstadoEgoista;
 
-int contEgoistaRestriccion = 0;
 
 int generarAleatorio(int min, int max) {
     // Semilla para la generación de números aleatorios
@@ -51,7 +50,6 @@ void* procesoEgoista(void* argumento) {
     int segSleep = parametros->segSleep;
     int segEscritura = parametros->segEscritura;
     struct Egoista *estadoEgoista = parametros->estadoEgoista;
-    printf("Proceso Egoista: %d\n", pid);
 
     //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA----------------------------------------------
     key_t claveFinalizador= obtener_key_t("..//..//finalizadorKey", 123);
@@ -60,24 +58,52 @@ void* procesoEgoista(void* argumento) {
     // Adjuntar la memoria  a nuestro espacio de direcciones
     bool* terminar = (bool*)shmat(idFinalizador, NULL, 0);
 
+    //SOLICITAR LA MEMORIA CONTADOR EGOISTA
+    key_t claveContEgoista= obtener_key_t("..//..//contadorEgoistaKey", 123);
+    // Crear la memoria compartida
+    int idContEgoista = shmget(claveContEgoista, sizeof(int), IPC_CREAT | 0666);
+    // Adjuntar la memoria  a nuestro espacio de direcciones
+    int* contadorEgoistas = (int*)shmat(idContEgoista, NULL, 0);
+
     //---------------------------
     //pedir semaforo para contEgoistaRestriccion
     sem_t *semaforoCnt;
     semaforoCnt = sem_open("/semaforo_egoistaCnt", O_CREAT, 0644, 1);
+
+    printf("Proceso Egoista: %d\n", pid);
 
     while(!*terminar){
 
         //Estado = 1 BLOQUEADO
         actulizarEstadoEgoista(1, semaforoEstadoEgoista, estadoEgoista, idMemoriaEstadoEgoistas);
 
-        //esperar semaforo de restriccion <3
         sem_wait(egoista);
+        if (*terminar){
+            shmdt(terminar);
+            pthread_exit(NULL);
+        }
+
+        if (*contadorEgoistas >= 3){
+            printf("Proceso %d esta restringuido \n",pid);
+
+            while(*contadorEgoistas >= 3){
+                usleep(200);
+
+                if (*terminar){
+                    shmdt(terminar);
+                    pthread_exit(NULL);
+                }
+            }
+        }
+
         //si pudo entrar entonces no hay restriccion, hace su proceso normal
         sem_wait(semaforo); //semaforo de la memoria compartida principal
 
         //actualizar contadores
         sem_wait(semaforoCnt);
-        contEgoistaRestriccion++;
+
+        (*contadorEgoistas)++;
+
         sem_post(semaforoCnt);
 
         /*proceso del egoista*/
@@ -103,7 +129,7 @@ void* procesoEgoista(void* argumento) {
         char convertido[10]= "";
 
         if (lineas[aleatorio].pid == 0) {
-            strcat(bufferMensaje, "La línea esta vacía");
+            strcat(bufferMensaje, "La línea esta vacía\n");
         }else{
             lineas[aleatorio].pid = 0;
             strcat(bufferMensaje, "La línea borrada es:  ");
@@ -115,32 +141,19 @@ void* procesoEgoista(void* argumento) {
             strcat(bufferMensaje, " -Linea: ");
             strcat(bufferMensaje, convertido);
 
-            printf("Linea borrada con exito");
+            printf("Linea borrada con exito\n");
         }
         char * fechaHora = obtenerFechaHoraActual();
         parsearInfoBitacora(buffer,pid, "Reader egoísta",fechaHora,"Borrando",bufferMensaje);
         escribirBitacora(semaforoBitacora, buffer);
         /* fin del proceso egoista*/
+        sem_post(egoista);
+        sem_post(semaforo);
 
-        if (contEgoistaRestriccion >= 3){
-            printf("entra a la restriccion\n");
-            //reset contador
-            sem_wait(semaforoCnt);
-            contEgoistaRestriccion=0;
-            sem_post(semaforoCnt);
-            //liberar semaforo principal
-            sem_post(semaforo);
-        }
-        else{
-            //reset contador
-            //liberar semaforo principal
-            sem_post(semaforo);
-            //liberar semaforo egoista
-            sem_post(egoista);
-        }
         printf("Proceso Egoista: %d Durmiedno\n", pid);
         actulizarEstadoEgoista(3, semaforoEstadoEgoista, estadoEgoista, idMemoriaEstadoEgoistas);
         sleep(segSleep);
+
     }
 
 

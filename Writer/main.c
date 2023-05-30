@@ -11,7 +11,9 @@
 #include "EstadoWriters.h"
 #include "../Bitacora/Bitacora.h"
 sem_t * semaforo_bitacora;
-sem_t * egoista;
+int* contadorEgoistas;
+sem_t *semaforoCnt;
+int valor;
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -101,10 +103,11 @@ void* procesoWriter(void* argumento) {
 
         finalizar = *terminar;
         if (finalizar){
+            //contador egoista = 0
+            sem_wait(semaforoCnt);
+            (*contadorEgoistas) = 0;
+            sem_post(semaforoCnt);
             sem_post(semaforo); //libera semaforo
-            //liberar semaforo egoista
-            sem_post(egoista);
-            break;
         }
 
         //ESPERAR SEMAFORO
@@ -117,10 +120,13 @@ void* procesoWriter(void* argumento) {
         //2
         finalizar = *terminar;
         if (finalizar){
-            sem_post(semaforo); //libera semaforo
-            //liberar semaforo egoista
-            sem_post(egoista);
-            break;
+
+            //contador egoista = 0
+            sem_wait(semaforoCnt);
+            (*contadorEgoistas) = 0;
+            sem_post(semaforoCnt);
+
+            sem_post(semaforo); //libera
         }
 
         // Adjuntar la memoria compartida a nuestro espacio de direcciones
@@ -158,11 +164,11 @@ void* procesoWriter(void* argumento) {
             strcpy(mensajeAccion, "Escribiendo");
             strcat(bufferMensaje, " | Linea: ");
             sprintf(bufferMensaje, "%d", lineas[lineaVacia].numLinea );
-            printf("Escritura exitosa en la línea %d\n", lineaVacia);
+            printf("Proceso: %d = Escritura exitosa en la línea %d\n", pid, lineaVacia);
         } else {
             strcpy(mensajeAccion, "Error al escribir (Lineas llenas)");
             strcpy(bufferMensaje, "n/d");
-            printf("No hay líneas vacías disponibles\n");
+            printf("\"Proceso: %d = No hay líneas vacías disponibles\n",pid);
         }
         //SUBIR DATOS A LA BITACORA
         parsearInfoBitacora(buffer, pid, "Writer", obtenerFechaHoraActual(), mensajeAccion,bufferMensaje );
@@ -175,9 +181,14 @@ void* procesoWriter(void* argumento) {
 
         //LIBERAR SEMAFORO
         printf("Proceso: %d Libera el semaforo\n", pid);
+
+        //contador egoista = 0
+        sem_wait(semaforoCnt);
+        (*contadorEgoistas) = 0;
+        sem_post(semaforoCnt);
+
         sem_post(semaforo);
-        //liberar semaforo egoista
-        sem_post(egoista);
+
 
         //TIEMPO DORMIDO
         printf("Proceso: %d durmiendo\n", pid);
@@ -192,7 +203,6 @@ void* procesoWriter(void* argumento) {
 
 
 int main() {
-    egoista = sem_open("/semaforo_egoista", O_CREAT, 0644, 1);
     semaforo_bitacora=obtenerSemaforoBitacora();
     //SEMAFORO
     sem_t *semaforo;
@@ -252,6 +262,18 @@ int main() {
     if (semaforoEstadoWriter == SEM_FAILED) {
         printf("Error al pedir el semaforo de estado de Writers");
     }
+
+    //SOLICITAR LA MEMORIA CONTADOR EGOISTA
+    key_t claveContEgoista= obtener_key_t("..//..//contadorEgoistaKey", 123);
+    // Crear la memoria compartida
+    int idContEgoista = shmget(claveContEgoista, sizeof(int), IPC_CREAT | 0666);
+    // Adjuntar la memoria  a nuestro espacio de direcciones
+    contadorEgoistas = (int*)shmat(idContEgoista, NULL, 0);
+
+    //---------------------------
+    //pedir semaforo para contEgoistaRestriccion
+
+    semaforoCnt = sem_open("/semaforo_egoistaCnt", O_CREAT, 0644, 1);
 
     struct ParametrosHilo parametros[cantidadWriters];
     struct Writer arregloEstadosWriters[cantidadWriters];

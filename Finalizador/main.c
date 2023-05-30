@@ -106,6 +106,39 @@ int main() {
         perror("Error al eliminar la memoria compartida egoistass");
     }
     //--------------------------------------------------------------------------
+    //CERRAR MEMORIA DE CONT EGOSITAS
+    key_t claveContEgoista = obtener_key_t("..//..//contadorEgoistaKey", 123);
+    if (claveContEgoista == -1) {
+        perror("Error al obtener la clave de la memoria compartida");
+        return 1;
+    }
+    // Crear la memoria compartida finalizadora
+    int idContEgoista = shmget(claveContEgoista, sizeof(int), IPC_CREAT | 0666);
+    if (idContEgoista == -1) {
+        perror("Error al crear la memoria compartida");
+        return 1;
+    }
+    // Adjuntar la memoria compartida a nuestro espacio de direcciones
+    int* contEgoista = (int*)shmat(idContEgoista, NULL, 0);
+    if (contEgoista == (int*)-1) {
+        perror("shmat");
+        return 1;
+    }
+
+    // Establecer la variable compartida
+    (*contEgoista) = 0;
+
+    // Desvincular la memoria compartida
+    if (shmdt(contEgoista) == -1) {
+        perror("shmdt");
+        return 1;
+    }
+
+    // Desvincular la memoria compartida
+    if (shmctl(idContEgoista, IPC_RMID, NULL) == -1) {
+        perror("Error al eliminar la memoria compartida");
+    }
+
     //CERRAR MEMORIA DE FINALIZACION
     //SOLICITAR MEMORIA COMPARTIDA FINALIZADORA
     key_t claveFinalizador= obtener_key_t("..//..//finalizadorKey", 123);

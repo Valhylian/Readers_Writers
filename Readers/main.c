@@ -13,7 +13,9 @@
 //VARIABLE GLOABL PARA CONTROLAR LA CANTIDAD O COLA DE LECTORES
 int readCnt = 0;
 sem_t  * semaforoBitacora;
-sem_t  * egoista;
+int* contadorEgoistas;
+sem_t *semaforoCntEgoistas;
+
 // Estructura para almacenar la información de cada línea en la memoria compartida
 struct LineaMemoria {
     int pid;
@@ -173,10 +175,17 @@ void* procesoReader(void* argumento) {
         sem_wait(semaforoCnt);
         readCnt--;
         if (readCnt == 0){
+            //contador egoista = 0
+            sem_wait(semaforoCntEgoistas);
+            (*contadorEgoistas) = 0;
+            sem_post(semaforoCntEgoistas);
             sem_post(semaforo);
-            //liberar semaforo egoista
-            sem_post(egoista);
 
+        }else{
+            //contador egoista = 0
+            sem_wait(semaforoCntEgoistas);
+            (*contadorEgoistas) = 0;
+            sem_post(semaforoCntEgoistas);
         }
         sem_post(semaforoCnt);
 
@@ -194,7 +203,6 @@ void* procesoReader(void* argumento) {
 }
 
 int main() {
-    egoista = sem_open("/semaforo_egoista", O_CREAT, 0644, 1);
     sem_t *semaforo;
     semaforoBitacora = obtenerSemaforoBitacora();
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
@@ -202,6 +210,17 @@ int main() {
         perror("sem_open");
         return 1;
     }
+    //SOLICITAR LA MEMORIA CONTADOR EGOISTA
+    key_t claveContEgoista= obtener_key_t("..//..//contadorEgoistaKey", 123);
+    // Crear la memoria compartida
+    int idContEgoista = shmget(claveContEgoista, sizeof(int), IPC_CREAT | 0666);
+    // Adjuntar la memoria  a nuestro espacio de direcciones
+    contadorEgoistas = (int*)shmat(idContEgoista, NULL, 0);
+
+    //---------------------------
+    //pedir semaforo para contEgoistaRestriccion
+
+    semaforoCntEgoistas = sem_open("/semaforo_egoistaCnt", O_CREAT, 0644, 1);
 
     //SOLICITAR CANT DE READERS AL USUARIO
     int cantidadReaders;

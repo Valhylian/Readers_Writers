@@ -43,7 +43,7 @@ int main() {
         perror("sem_open");
         return 1;
     }
-    sem_init(semaforoEgoista, 1, 0); //inicia bloqueado
+    //sem_init(semaforoEgoista, 1, 0); //inicia bloqueado
 
     //PEDIR ESPACIO DE MEMORIA COMPARTIDA PRINCIPAL--------------------------------------------
     const char* ruta = "..//..//generadorKey";
@@ -124,6 +124,40 @@ int main() {
     }
 
     printf("Memoria compartida inicializada correctamente.\n");
+
+    //-------------------------------------------------------------------------------
+    //SOLICITAR MEMORIA COMPARTIDA CONTADOR DE EGOISTAS
+    key_t claveContEgoista = obtener_key_t("..//..//contadorEgoistaKey", 123);
+    if (claveContEgoista == -1) {
+        perror("Error al obtener la clave de la memoria compartida");
+        return 1;
+    }
+    // Crear la memoria compartida finalizadora
+    int idContEgoista = shmget(claveContEgoista, sizeof(int), IPC_CREAT | 0666);
+    if (idContEgoista == -1) {
+        perror("Error al crear la memoria compartida");
+        return 1;
+    }
+    // Adjuntar la memoria compartida a nuestro espacio de direcciones
+    int* contEgoista = (int*)shmat(idContEgoista, NULL, 0);
+    if (contEgoista == (int*)-1) {
+        perror("shmat");
+        return 1;
+    }
+
+    int valor = 0;   // Valor que deseas asignar al puntero
+
+    *contEgoista = valor;
+
+
+    // Desvincular la memoria compartida
+    if (shmdt(contEgoista) == -1) {
+        printf("entra2");
+        perror("shmdt");
+        return 1;
+    }
+
+    printf("Memoria compartida egoista correctamente.\n");
 
     return 0;
 }
