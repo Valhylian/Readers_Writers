@@ -5,8 +5,6 @@
 #include <stdbool.h>
 #include "../Bitacora/Bitacora.h"
 #include <signal.h>
-#include <proc/readproc.h>
-
 
 //MEMORIA Y SEMAFOROS A FINALIZAR:
 //1- MEMORIA PRINCIPAL
