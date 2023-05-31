@@ -129,7 +129,7 @@ void* procesoEgoista(void* argumento) {
         char convertido[10]= "";
 
         if (lineas[aleatorio].pid == 0) {
-            strcat(bufferMensaje, "La línea esta vacía\n");
+            strcat(bufferMensaje, "La línea esta vacía");
         }else{
             lineas[aleatorio].pid = 0;
             strcat(bufferMensaje, "La línea borrada es:  ");
