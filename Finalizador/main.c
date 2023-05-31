@@ -4,14 +4,70 @@
 #include <semaphore.h>
 #include <stdbool.h>
 #include "../Bitacora/Bitacora.h"
+#include <signal.h>
+#include <proc/readproc.h>
+
+
 //MEMORIA Y SEMAFOROS A FINALIZAR:
 //1- MEMORIA PRINCIPAL
 //2- SEMAFORO PRINCIPAL (WRITER)
 //3- MEMORIA FINALIZADORA
 //4- MEMORIA ESTADO WRITERS
 
+#define MAX_PIDS 256
+void matarProcesos(const char* programa){
+
+        // Ejecutar el comando "ps" y redirigir la salida a un archivo temporal
+        system("ps -e -o pid,comm > temp_ps_output.txt");
+
+        // Abrir el archivo temporal para leer la salida de "ps"
+        FILE* archivo_ps = fopen("temp_ps_output.txt", "r");
+        if (archivo_ps == NULL) {
+            perror("Error al abrir el archivo temporal");
+            return;
+        }
+
+        // Leer el archivo línea por línea y buscar el programa en el nombre de comando (comm)
+        char linea[256];
+        int pid_list[MAX_PIDS];
+        int num_pids = 0;
+
+        while (fgets(linea, sizeof(linea), archivo_ps) != NULL) {
+            int pid;
+            char nombre[256];
+
+            // Extraer el PID y el nombre de comando de la línea
+            sscanf(linea, "%d %s", &pid, nombre);
+
+            // Comparar el nombre de comando con el programa buscado
+            if (strcmp(nombre, programa) == 0) {
+                // Agregar el PID a la lista de PIDs encontrados
+                pid_list[num_pids++] = pid;
+            }
+        }
+
+        // Cerrar el archivo y eliminar el archivo temporal
+        fclose(archivo_ps);
+        remove("temp_ps_output.txt");
+
+        // Enviar una señal a los procesos encontrados
+        int i;
+        for (i = 0; i < num_pids; i++) {
+            int pid = pid_list[i];
+            printf("Enviando señal al PID: %d\n", pid);
+            kill(pid, SIGTERM); // Puedes usar la señal deseada, como SIGTERM para terminar suavemente
+        }
+
+        return;
+    }
+
+
 const char* ruta = "..//..//generadorKey";
 int id_proyecto = 123; // Identificador de proyecto arbitrario
+
+const char* programaReaders = "Readers"; // Nombre del programa
+const char* programaWriter = "Writer"; // Nombre del programa
+const char* programaEgoista = "Egoista"; // Nombre del programa
 
 //obtener key
 key_t obtener_key_t(const char* ruta, int id_proyecto) {
@@ -25,6 +81,7 @@ key_t obtener_key_t(const char* ruta, int id_proyecto) {
 }
 
 int main() {
+
     sem_t * semaforoBitacora = obtenerSemaforoBitacora();
     finalizarSemaforoBitacora(semaforoBitacora);
     printf("Semáforo de la bitacora liberado\n");
@@ -192,6 +249,11 @@ int main() {
         perror("Error al cerrar el semaforo_egoistaCnt");
     }
     printf("Recursos liberados correctamente.\n");
+
+
+    matarProcesos(programaEgoista);
+    matarProcesos(programaWriter);
+    matarProcesos(programaReaders);
 
     return 0;
 }

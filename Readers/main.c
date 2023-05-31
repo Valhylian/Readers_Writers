@@ -203,6 +203,8 @@ void* procesoReader(void* argumento) {
 }
 
 int main() {
+
+
     sem_t *semaforo;
     semaforoBitacora = obtenerSemaforoBitacora();
     semaforo = sem_open("/semaforo_writer", O_CREAT, 0644, 1);
